@@ -1,2 +1,4 @@
-# l1
-L1 presentations, exercise and codes
+# Level 1 folder
+Presentations
+Lab codes
+Exercise
