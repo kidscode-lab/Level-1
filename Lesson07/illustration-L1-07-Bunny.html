@@ -4,83 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Bunny Pet Game - KidsCode-Lab</title>
+    <link rel="stylesheet" href="../styles/master.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
-            min-height: 100vh;
-            padding: 20px;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 40px;
-            border: 2px solid #e3f2fd;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .brand-logo-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(45deg, #3b82f6, #1e40af);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-        }
-
-        .brand-logo-text {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #1e40af, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header h1 {
-            color: #1e40af;
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header h2 {
-            color: #2c3e50;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
+        /* Page-specific styles only */
         .lesson-section {
             background: white;
             border-radius: 15px;
@@ -122,56 +48,6 @@
             margin-bottom: 15px;
             padding-bottom: 5px;
             border-bottom: 2px solid #e3f2fd;
-        }
-
-        .code-block {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            margin: 15px 0;
-            overflow-x: auto;
-            position: relative;
-            border: 1px solid #4a5568;
-        }
-
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .copy-button:hover {
-            background: #1e40af;
-        }
-
-        .copy-button:active {
-            background: #16a34a;
-        }
-
-        .keyword { color: #ff79c6; }
-        .string { color: #50fa7b; }
-        .number { color: #f1fa8c; }
-        .comment { color: #6272a4; }
-
-        .output-example {
-            background: #1f2937;
-            color: #f9fafb;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            margin: 15px 0;
-            border-left: 4px solid #10b981;
         }
 
         .tip-box {
@@ -284,22 +160,15 @@
             color: #6b7280;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .lesson-title {
-                font-size: 1.5rem;
-            }
-            
-            .brand-logo-text {
-                font-size: 2rem;
-            }
+        .output-example {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #10b981;
+            white-space: pre;
         }
     </style>
 </head>
@@ -307,7 +176,7 @@
     <div class="container">
         <div class="header">
             <div class="brand-logo">
-                <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
                 <div class="brand-logo-text">KidsCode Lab</div>
             </div>
             <h1>🎮 Virtual Bunny Pet Game</h1>
