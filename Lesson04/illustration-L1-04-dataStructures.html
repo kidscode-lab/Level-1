@@ -6,7 +6,26 @@
     <title>Python Data Structures</title>
     <link rel="stylesheet" href="../styles/master.css">
     <style>
-        /* Page-specific styles only */
+        /* Page-specific styles */
+        .container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        /* Container should not have the default padding for this layout */
+        .container {
+            padding: 0;
+        }
+        
+        /* Ensure content has proper grid layout */
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
         .data-type {
             background: #f8f9fa;
             border-radius: 10px;

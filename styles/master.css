@@ -257,6 +257,135 @@ body {
 .p-3 { padding: 1.5rem; }
 .p-4 { padding: 2rem; }
 
+/* Content Grid Layout */
+.content {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* Code styles (alternative to code-block) */
+.code {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    margin: 10px 0;
+    overflow-x: auto;
+    border: 1px solid #4a5568;
+    white-space: pre;
+    line-height: 1.4;
+    tab-size: 4;
+    font-size: 13px;
+}
+
+/* Syntax highlighting for both .code and .code-block */
+.code .keyword, .code-block .keyword { color: #ff79c6; }
+.code .string, .code-block .string { color: #50fa7b; }
+.code .number, .code-block .number { color: #f1fa8c; }
+.code .comment, .code-block .comment { color: #6272a4; }
+
+/* Data type specific styles */
+.data-type {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 5px solid;
+    transition: transform 0.3s ease;
+}
+
+.data-type:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.data-type h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.list { border-left-color: #ff6b6b; }
+.tuple { border-left-color: #4ecdc4; }
+.set { border-left-color: #45b7d1; }
+.dictionary { border-left-color: #96ceb4; }
+
+.icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.list .icon { background: #ff6b6b; }
+.tuple .icon { background: #4ecdc4; }
+.set .icon { background: #45b7d1; }
+.dictionary .icon { background: #96ceb4; }
+
+/* Tips section */
+.tips {
+    grid-column: 1 / -1;
+    background: #e8f5e8;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #4caf50;
+}
+
+.tips h3 {
+    color: #2e7d32;
+    margin-top: 0;
+}
+
+/* Lab section */
+.lab-section {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.lab {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    backdrop-filter: blur(10px);
+}
+
+.lab h4 {
+    margin-top: 0;
+    color: #ffd700;
+}
+
+/* Comparison table */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.comparison-table th,
+.comparison-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.comparison-table th {
+    background: #f2f2f2;
+    font-weight: bold;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
