@@ -4,45 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Data Structures</title>
+    <link rel="stylesheet" href="styles/master.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(45deg, #2196F3, #21CBF3);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .content {
-            padding: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        
+        /* Page-specific styles only */
         .data-type {
             background: #f8f9fa;
             border-radius: 10px;
@@ -61,14 +25,6 @@
         .set { border-left-color: #45b7d1; }
         .dictionary { border-left-color: #96ceb4; }
         
-        .data-type h2 {
-            margin-top: 0;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
         .icon {
             width: 30px;
             height: 30px;
@@ -84,60 +40,6 @@
         .tuple .icon { background: #4ecdc4; }
         .set .icon { background: #45b7d1; }
         .dictionary .icon { background: #96ceb4; }
-        
-        .code {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            margin: 10px 0;
-            overflow-x: auto;
-            border: 1px solid #4a5568;
-            white-space: pre;
-            line-height: 1.4;
-            tab-size: 4;
-        }
-        
-        .keyword { color: #ff79c6; }
-        .string { color: #50fa7b; }
-        .number { color: #f1fa8c; }
-        .comment { color: #6272a4; }
-        
-        .lab-section {
-            grid-column: 1 / -1;
-            margin-top: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-        }
-        
-        .lab {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            backdrop-filter: blur(10px);
-        }
-        
-        .lab h4 {
-            margin-top: 0;
-            color: #ffd700;
-        }
-        
-        .tips {
-            grid-column: 1 / -1;
-            background: #e8f5e8;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #4caf50;
-        }
-        
-        .tips h3 {
-            color: #2e7d32;
-            margin-top: 0;
-        }
         
         .comparison-table {
             width: 100%;
@@ -156,16 +58,51 @@
             background: #f2f2f2;
             font-weight: bold;
         }
+        
+        .tips {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .tips h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        
+        .lab-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .lab {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lab h4 {
+            margin-top: 0;
+            color: #ffd700;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>KidsCode-Lab</h1>
-            <h2>🐍 Python Data Structures</h2>
+            <div class="brand-logo">
+                <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <div class="brand-logo-text">KidsCode Lab</div>
+            </div>
+            <h1>🐍 Python Data Structures</h1>
             <h3>Lists, Tuples, Sets, and Dictionaries</h3>
-        </div>
-        
+        </div>        
         <div class="content">
             <!-- Lists -->
             <div class="data-type list">
