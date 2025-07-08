@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Bunny Pet Game - KidsCode-Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            border: 2px solid #e3f2fd;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .brand-logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .brand-logo-text {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .lesson-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e3f2fd;
+        }
+
+        .lesson-title {
+            color: #1e40af;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lesson-number {
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+        }
+
+        .subsection h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid #4a5568;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .copy-button:hover {
+            background: #1e40af;
+        }
+
+        .copy-button:active {
+            background: #16a34a;
+        }
+
+        .keyword { color: #ff79c6; }
+        .string { color: #50fa7b; }
+        .number { color: #f1fa8c; }
+        .comment { color: #6272a4; }
+
+        .output-example {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .tip-box {
+            background: #f0f9ff;
+            border: 2px solid #3b82f6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tip-box h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .requirements-list {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .requirements-list h4 {
+            color: #059669;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .requirements-list ul {
+            padding-left: 20px;
+        }
+
+        .requirements-list li {
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .system-design {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .system-design h4 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .flow-step {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .flow-step h5 {
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .demo-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .demo-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .emoji-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .emoji-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-width: 80px;
+        }
+
+        .emoji-item .emoji {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .emoji-item .name {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+            
+            .brand-logo-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand-logo">
+                <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <div class="brand-logo-text">KidsCode Lab</div>
+            </div>
+            <h1>🎮 Virtual Bunny Pet Game</h1>
+            <h2>Lessons 7 & 8 - Build Your Own Interactive Pet Game</h2>
+        </div>
+
+        <!-- LESSON 7: PREPARATION AND DESIGN -->
+        <div class="lesson-section">
+            <h2 class="lesson-title">
+                <div class="lesson-number">7</div>
+                Game Preparation & System Design
+            </h2>
+
+            <!-- Pre-Game Skills Section -->
+            <div class="subsection">
+                <h3>🛠️ Pre-Game Skills</h3>
+                <p>Before we start building our bunny game, let's learn some cool techniques that will make our game more engaging!</p>
+
+                <!-- Emoji Discovery -->
+                <div class="tip-box">
+                    <h4>1. 🎨 Discover Emojis for Your Game</h4>
+                    <p>Make your game colorful and fun with emojis! Visit <a href="https://emojipedia.org" target="_blank" class="demo-link">📱 Emojipedia.org</a> to find amazing emojis.</p>
+                    
+                    <div class="emoji-showcase">
+                        <div class="emoji-item">
+                            <div class="emoji">🐰</div>
+                            <div class="name">Bunny</div>
+                        </div>
+                        <div class="emoji-item">
+                            <div class="emoji">🥕</div>
+                            <div class="name">Carrot</div>
+                        </div>
+                        <div class="emoji-item">
+                            <div class="emoji">🎾</div>
+                            <div class="name">Ball</div>
+                        </div>
+                        <div class="emoji-item">
+                            <div class="emoji">❤️</div>
+                            <div class="name">Health</div>
+                        </div>
+                        <div class="emoji-item">
+                            <div class="emoji">😊</div>
+                            <div class="name">Happy</div>
+                        </div>
+                        <div class="emoji-item">
+                            <div class="emoji">🍽️</div>
+                            <div class="name">Hunger</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animation Effects -->
+                <div class="tip-box">
+                    <h4>2. ✨ Animation Effects - Try This!</h4>
+                    <p>Copy and run this code to see cool typing and loading effects:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="keyword">import</span> time
+<span class="keyword">import</span> sys
+
+<span class="keyword">def</span> <span class="string">typewriter_effect</span>(text, delay=<span class="number">0.05</span>):
+    <span class="comment"># Print text like a typewriter</span>
+    <span class="keyword">for</span> char <span class="keyword">in</span> text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(delay)
+    <span class="keyword">print</span>()
+
+<span class="keyword">def</span> <span class="string">loading_animation</span>(message=<span class="string">"Loading"</span>, duration=<span class="number">2</span>):
+    <span class="comment"># Show loading dots</span>
+    <span class="keyword">print</span>(<span class="string">f"{message}"</span>, end=<span class="string">""</span>)
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(duration * <span class="number">4</span>):
+        <span class="keyword">print</span>(<span class="string">"."</span>, end=<span class="string">""</span>, flush=<span class="keyword">True</span>)
+        time.sleep(<span class="number">0.25</span>)
+    <span class="keyword">print</span>(<span class="string">" Done! ✅"</span>)
+
+<span class="comment"># boring print out</span>
+<span class="keyword">print</span>(<span class="string">"🎮 Welcome to the amazing bunny game!"</span>)
+<span class="keyword">print</span>(<span class="string">"Setting up your bunny ..."</span>)
+<span class="keyword">print</span>(<span class="string">"🐰 Your bunny is ready to play!"</span>)
+
+dummy = <span class="keyword">input</span>(<span class="string">"Hit Enter to see cool typing style ..."</span>)
+
+<span class="comment"># Try it out!</span>
+typewriter_effect(<span class="string">"🎮 Welcome to the amazing bunny game!"</span>)
+loading_animation(<span class="string">"Setting up your bunny"</span>, <span class="number">3</span>)
+typewriter_effect(<span class="string">"🐰 Your bunny is ready to play!"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <!-- JSON Refresh -->
+                <div class="tip-box">
+                    <h4>3. 💾 JSON File Handling (Lesson 5 Refresh)</h4>
+                    <p>Remember how to save and load data? Here's a quick reminder:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-button" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="keyword">import</span> json
+
+<span class="comment"># Save data to file</span>
+pet_data = {<span class="string">"name"</span>: <span class="string">"Fluffy"</span>, <span class="string">"health"</span>: <span class="number">10</span>, <span class="string">"happiness"</span>: <span class="number">5</span>}
+<span class="keyword">with</span> open(<span class="string">"pet_data.json"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> file:
+    json.dump(pet_data, file)
+
+<span class="comment"># Load data from file</span>
+<span class="keyword">try</span>:
+    <span class="keyword">with</span> open(<span class="string">"pet_data.json"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> file:
+        pet_data = json.load(file)
+<span class="keyword">except</span> FileNotFoundError:
+    <span class="comment"># Create new pet if file doesn't exist</span>
+    pet_data = {<span class="string">"name"</span>: <span class="string">"Fluffy"</span>, <span class="string">"health"</span>: <span class="number">10</span>}</code></pre>
+                    </div>
+                    
+                    <p><strong>📁 This creates a JSON file that looks like:</strong></p>
+                    <div class="output-example">
+{"name": "Fluffy", "health": 10, "happiness": 5}
+                    </div>
+                </div>
+            </div>
+
+            <!-- ASCII Art Section -->
+            <div class="subsection">
+                <h3>🎨 ASCII Art for Your Bunny</h3>
+                <div class="tip-box">
+                    <h4>4. 🐰 Create Cool ASCII Art</h4>
+                    <p>Make your bunny look amazing with ASCII art! Visit <a href="https://www.asciiart.eu" target="_blank" class="demo-link">🎨 ASCIIart.eu</a> to find more creative designs.</p>
+                    
+                    <div class="output-example"><pre>
+Our Bunny Design:
+    /|   /|      ← Ears
+    ( ^_^ )      ← Face
+  o_(")(")    ← Body & Feet
+
+Try these variations:
+    /|   /|       /|   /|       /|   /|
+    ( o.o )       ( -.- )       ( x_x )
+    o_(")(")     o_(")(")      o_(")(")
+   (Awake)      (Sleeping)      (Sick)
+                    </pre></div>
+                </div>
+            </div>
+
+            <!-- Game Requirements -->
+            <div class="subsection">
+                <h3>📋 Game Requirements</h3>
+                <div class="requirements-list">
+                    <h4>🎯 Your Mission</h4>
+                    <ul>
+                        <li>Create a virtual bunny pet that players can care for</li>
+                        <li>Allow players to <strong>feed</strong>, <strong>play</strong>, and check their <strong>bunny's status</strong></li>
+                        <li>Track bunny's <strong>health</strong>, <strong>happiness</strong>, and <strong>hunger levels</strong></li>
+                        <li>Save bunny data so it persists between game sessions</li>
+                        <li>Display the bunny with different moods based on its condition</li>
+                        <li>Provide a colorful, engaging user interface</li>
+                    </ul>
+                </div>
+
+                <h4>🖥️ Expected Output</h4>
+                <div class="output-example">
+                    <pre>
+🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰 🌟 VIRTUAL BUNNY PET GAME 🌟 🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰 
+Welcome to the most adorable pet game ever! 🐰 
+📋 Loading Fluffy's data... 
+........ Done! ✅ 
+🎉 Fluffy is ready to play! 
+Your bunny is waking up...
+    /| /| 
+   ( o.o ) 
+  o_(")(") 
+Good morning, Fluffy! 🌅 
+================================================== 
+😊 Fluffy is feeling great today! 
+
+     /| /| 
+  ( ˶ᵔ ᵕ ᵔ˶ ) 
+  o_(")(") 
+  
+  ❤️ Health: [██████████████████░░] 90% (9/10) 
+  😊 Happiness: [████████████████████] 100% (10/10) 
+  🍽️ Hunger: [██░░░░░░░░░░░░░░░░░░] 10% (1/10) 
+  
+================================================== 
+  
+🎮 What would you like to do with your bunny? 
+  
+1. 🥕 Feed your pet 
+2. 🎾 Play with your pet 
+3. 📊 Check pet status 
+4. 💾 Save and Quit 
+👆 Enter your choice (1-4):
+                    </pre>
+                </div>
+            </div>
+
+            <!-- System Design -->
+            <div class="subsection">
+                <h3>🏗️ System Design</h3>
+                <div class="system-design">
+                    <h4>🔄 Game Flow</h4>
+                    
+                    <div class="flow-step">
+                        <h5>1. 🚀 Game Initialization</h5>
+                        <p>Load bunny data from JSON file → Display welcome screen → Show bunny waking up</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <h5>2. 🔄 Main Game Loop</h5>
+                        <p>Display menu → Get user choice → Execute action → Update bunny stats → Repeat</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <h5>3. 🎭 Bunny Mood System</h5>
+                        <p>Calculate overall wellness → Choose appropriate face → Display with matching message</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <h5>4. 💾 Data Persistence</h5>
+                        <p>Save bunny stats to JSON file when player quits → Load on next game start</p>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <h5>5. 🎨 Visual Enhancement</h5>
+                        <p>Colors + Emojis + Animations + ASCII Art = Engaging Experience!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LESSON 8: CODE IMPLEMENTATION -->
+        <div class="lesson-section">
+            <h2 class="lesson-title">
+                <div class="lesson-number">8</div>
+                Code Implementation
+            </h2>
+
+            <div class="subsection">
+                <h3>📝 Code Template</h3>
+                <p>Focus on the game logic! All the visual effects and decorations are provided for you. Your job is to complete the <strong>TODO</strong> sections with the programming skills you've learned.</p>
+                
+                <div class="tip-box">
+                    <h4>🎯 Your Focus Areas</h4>
+                    <ul>
+                        <li><strong>Functions:</strong> Complete the function logic</li>
+                        <li><strong>Dictionaries:</strong> Manage pet data</li>
+                        <li><strong>Conditionals:</strong> Make decisions based on pet stats</li>
+                        <li><strong>Loops:</strong> Create the main game loop</li>
+                        <li><strong>File I/O:</strong> Save and load JSON data</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <button class="copy-button" onclick="copyCode(this)">📋 Copy Complete Template</button>
+<pre><code><span class="keyword">import</span> json
+<span class="keyword">import</span> time
+<span class="keyword">import</span> sys
+<span class="keyword">import</span> random
+
+<span class="comment"># Color codes for terminal output</span>
+<span class="keyword">class</span> <span class="string">Colors</span>:
+    HEADER = <span class="string">'\033[95m'</span>
+    BLUE = <span class="string">'\033[94m'</span>
+    GREEN = <span class="string">'\033[92m'</span>
+    WARNING = <span class="string">'\033[93m'</span>
+    FAIL = <span class="string">'\033[91m'</span>
+    ENDC = <span class="string">'\033[0m'</span>
+    BOLD = <span class="string">'\033[1m'</span>
+
+<span class="comment"># ============== VISUAL EFFECTS (PROVIDED) ==============</span>
+<span class="keyword">def</span> <span class="string">print_colored</span>(text, color):
+    <span class="string">"""Print text in color"""</span>
+    <span class="keyword">print</span>(<span class="string">f"{color}{text}{Colors.ENDC}"</span>)
+
+<span class="keyword">def</span> <span class="string">typewriter_effect</span>(text, delay=<span class="number">0.03</span>):
+    <span class="string">"""Print text with typewriter effect"""</span>
+    <span class="keyword">for</span> char <span class="keyword">in</span> text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(delay)
+    <span class="keyword">print</span>()
+
+<span class="keyword">def</span> <span class="string">loading_animation</span>(message=<span class="string">"Loading"</span>, duration=<span class="number">2</span>):
+    <span class="string">"""Show loading animation"""</span>
+    <span class="keyword">print</span>(<span class="string">f"{message}"</span>, end=<span class="string">""</span>)
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(duration * <span class="number">4</span>):
+        <span class="keyword">print</span>(<span class="string">"."</span>, end=<span class="string">""</span>, flush=<span class="keyword">True</span>)
+        time.sleep(<span class="number">0.25</span>)
+    <span class="keyword">print</span>(<span class="string">" Done! ✅"</span>)
+
+<span class="keyword">def</span> <span class="string">print_title</span>():
+    <span class="string">"""Print fancy game title"""</span>
+    print_colored(<span class="string">"🐰"</span> * <span class="number">50</span>, Colors.HEADER)
+    print_colored(<span class="string">"           🌟 VIRTUAL BUNNY PET GAME 🌟"</span>, Colors.HEADER)
+    print_colored(<span class="string">"🐰"</span> * <span class="number">50</span>, Colors.HEADER)
+    <span class="keyword">print</span>()
+
+<span class="keyword">def</span> <span class="string">create_status_bar</span>(value, max_value=<span class="number">10</span>, bar_length=<span class="number">20</span>):
+    <span class="string">"""Create a visual status bar"""</span>
+    filled_length = int(bar_length * value / max_value)
+    bar = <span class="string">'█'</span> * filled_length + <span class="string">'░'</span> * (bar_length - filled_length)
+    percentage = int(<span class="number">100</span> * value / max_value)
+    <span class="keyword">return</span> <span class="string">f"[{bar}] {percentage}%"</span>
+
+<span class="comment"># ============== YOUR CODE STARTS HERE ==============</span>
+
+<span class="comment"># TODO 1: Complete the load_bunny_data function</span>
+<span class="keyword">def</span> <span class="string">load_bunny_data</span>():
+    <span class="string">"""Load bunny data from JSON file"""</span>
+    <span class="keyword">try</span>:
+        <span class="comment"># TODO: Open and read from "pet_data.json"</span>
+        <span class="comment"># TODO: Return the loaded data</span>
+        <span class="keyword">pass</span>
+    <span class="keyword">except</span> FileNotFoundError:
+        <span class="comment"># TODO: Return default bunny data if file doesn't exist</span>
+        <span class="comment"># Default: {"name": "Fluffy", "hunger": 5, "happiness": 5, "health": 10}</span>
+        <span class="keyword">pass</span>
+
+<span class="comment"># TODO 2: Complete the save_bunny_data function</span>
+<span class="keyword">def</span> <span class="string">save_bunny_data</span>(pet):
+    <span class="string">"""Save bunny data to JSON file"""</span>
+    <span class="comment"># TODO: Open "pet_data.json" in write mode</span>
+    <span class="comment"># TODO: Use json.dump to save the pet data</span>
+    <span class="keyword">pass</span>
+
+<span class="comment"># TODO 3: Complete the get_bunny_mood function</span>
+<span class="keyword">def</span> <span class="string">get_bunny_mood</span>(pet):
+    <span class="string">"""Determine bunny's overall mood"""</span>
+    <span class="comment"># TODO: Calculate total wellness from health, happiness, and hunger</span>
+    <span class="comment"># Formula: (health + happiness + (10 - hunger)) / 3</span>
+    <span class="comment"># TODO: Return mood based on total_wellness:</span>
+    <span class="comment"># >= 8: "ecstatic", >= 6: "happy", >= 4: "okay", >= 2: "worried", else: "sick"</span>
+    <span class="keyword">pass</span>
+
+<span class="comment"># PROVIDED: Bunny face and message system</span>
+<span class="keyword">def</span> <span class="string">get_bunny_face_and_message</span>(pet):
+    <span class="string">"""Get dynamic face and message based on pet's condition"""</span>
+    mood = get_bunny_mood(pet)
+    
+    faces_and_messages = {
+        <span class="string">"ecstatic"</span>: {
+            <span class="string">"face"</span>: <span class="string">"( ◕ ω ◕ )"</span>,
+            <span class="string">"message"</span>: <span class="string">f"🌟 {pet['name']} is absolutely glowing with happiness! 🌟"</span>,
+            <span class="string">"color"</span>: Colors.GREEN
+        },
+        <span class="string">"happy"</span>: {
+            <span class="string">"face"</span>: <span class="string">"( ˶ᵔ ᵕ ᵔ˶ )"</span>,
+            <span class="string">"message"</span>: <span class="string">f"😊 {pet['name']} is feeling great today!"</span>,
+            <span class="string">"color"</span>: Colors.BLUE
+        },
+        <span class="string">"okay"</span>: {
+            <span class="string">"face"</span>: <span class="string">"( ･ω･ )"</span>,
+            <span class="string">"message"</span>: <span class="string">f"🙂 {pet['name']} is doing alright."</span>,
+            <span class="string">"color"</span>: Colors.ENDC
+        },
+        <span class="string">"worried"</span>: {
+            <span class="string">"face"</span>: <span class="string">"( ˘︹˘ )"</span>,
+            <span class="string">"message"</span>: <span class="string">f"😟 {pet['name']} seems a bit worried..."</span>,
+            <span class="string">"color"</span>: Colors.WARNING
+        },
+        <span class="string">"sick"</span>: {
+            <span class="string">"face"</span>: <span class="string">"( ╥ω╥ )"</span>,
+            <span class="string">"message"</span>: <span class="string">f"😰 {pet['name']} needs your help urgently!"</span>,
+            <span class="string">"color"</span>: Colors.FAIL
+        }
+    }
+    
+    <span class="keyword">return</span> faces_and_messages[mood]
+
+<span class="comment"># PROVIDED: Display bunny status</span>
+<span class="keyword">def</span> <span class="string">display_bunny_status</span>(pet):
+    <span class="string">"""Enhanced status display with visual elements"""</span>
+    face_data = get_bunny_face_and_message(pet)
+    
+    <span class="keyword">print</span>(<span class="string">"\n"</span> + <span class="string">"="</span>*<span class="number">50</span>)
+    print_colored(face_data[<span class="string">"message"</span>], face_data[<span class="string">"color"</span>])
+    <span class="keyword">print</span>()
+    
+    <span class="comment"># ASCII bunny with dynamic face</span>
+    <span class="keyword">print</span>(<span class="string">"        /|   /|"</span>)
+    print_colored(<span class="string">f"        {face_data['face']}"</span>, face_data[<span class="string">"color"</span>])
+    <span class="keyword">print</span>(<span class="string">"        o_(\")(\")"</span>)
+    <span class="keyword">print</span>()
+    
+    <span class="comment"># Visual status bars</span>
+    health_bar = create_status_bar(pet[<span class="string">"health"</span>])
+    happiness_bar = create_status_bar(pet[<span class="string">"happiness"</span>])
+    hunger_bar = create_status_bar(pet[<span class="string">"hunger"</span>])
+    
+    print_colored(<span class="string">f"❤️  Health:    {health_bar} ({pet['health']}/10)"</span>, Colors.FAIL)
+    print_colored(<span class="string">f"😊 Happiness: {happiness_bar} ({pet['happiness']}/10)"</span>, Colors.BLUE)
+    print_colored(<span class="string">f"🍽️  Hunger:    {hunger_bar} ({pet['hunger']}/10)"</span>, Colors.WARNING)
+    <span class="keyword">print</span>(<span class="string">"="</span>*<span class="number">50</span>)
+
+<span class="comment"># TODO 4: Complete the display_menu function</span>
+<span class="keyword">def</span> <span class="string">display_menu</span>():
+    <span class="string">"""Display colorful interactive menu"""</span>
+    <span class="keyword">print</span>()
+    print_colored(<span class="string">"🎮 What would you like to do with your bunny?"</span>, Colors.HEADER)
+    <span class="keyword">print</span>()
+    <span class="keyword">print</span>(<span class="string">"1. 🥕 Feed your pet"</span>)
+    <span class="keyword">print</span>(<span class="string">"2. 🎾 Play with your pet"</span>)
+    <span class="keyword">print</span>(<span class="string">"3. 📊 Check pet status"</span>)
+    <span class="keyword">print</span>(<span class="string">"4. 💾 Save and Quit"</span>)
+    <span class="keyword">print</span>()
+    
+    <span class="comment"># TODO: Create a loop that asks for user input</span>
+    <span class="comment"># TODO: Validate input is 1, 2, 3, or 4</span>
+    <span class="comment"># TODO: Return the valid choice as integer</span>
+    <span class="comment"># TODO: Handle invalid input with error messages</span>
+    <span class="keyword">pass</span>
+
+<span class="comment"># TODO 5: Complete the feed_bunny function</span>
+<span class="keyword">def</span> <span class="string">feed_bunny</span>(pet):
+    <span class="string">"""Feed bunny with personality responses"""</span>
+    print_colored(<span class="string">"🥕 Feeding time!"</span>, Colors.GREEN)
+    loading_animation(<span class="string">"Preparing food"</span>, <span class="number">1</span>)
+    
+    <span class="comment"># TODO: Store old hunger for comparison</span>
+    
+    <span class="comment"># TODO: Decrease hunger by 3 (but not below 0)</span>
+    <span class="comment"># Use: pet["hunger"] = max(0, pet["hunger"] - 3)</span>
+    
+    <span class="comment"># TODO: Apply health effects:</span>
+    <span class="comment"># If hunger < 3: increase health by 1 (max 10)</span>
+    <span class="comment"># If hunger > 7: decrease health by 1 (min 0)</span>
+    
+    <span class="comment"># PROVIDED: Dynamic responses</span>
+    <span class="keyword">if</span> old_hunger >= <span class="number">8</span>:
+        typewriter_effect(<span class="string">f"🤤 {pet['name']} was STARVING and devoured the food!"</span>)
+        typewriter_effect(<span class="string">"💪 Your bunny feels much stronger now!"</span>)
+    <span class="keyword">elif</span> old_hunger >= <span class="number">5</span>:
+        typewriter_effect(<span class="string">f"😋 {pet['name']} munched happily on the delicious food!"</span>)
+    <span class="keyword">elif</span> old_hunger >= <span class="number">2</span>:
+        typewriter_effect(<span class="string">f"😌 {pet['name']} ate politely but wasn't too hungry."</span>)
+    <span class="keyword">else</span>:
+        typewriter_effect(<span class="string">f"😴 {pet['name']} is already full but ate a little snack anyway."</span>)
+        typewriter_effect(<span class="string">"Maybe try playing instead? 🎾"</span>)
+    
+    display_bunny_status(pet)
+    <span class="keyword">input</span>(<span class="string">"\n🎯 Press Enter to continue..."</span>)
+    <span class="keyword">return</span> pet
+
+<span class="comment"># TODO 6: Complete the play_with_bunny function</span>
+<span class="keyword">def</span> <span class="string">play_with_bunny</span>(pet):
+    <span class="string">"""Play with bunny with fun activities"""</span>
+    activities = [
+        <span class="string">"🎾 threw a ball"</span>,
+        <span class="string">"🐰 did bunny hops together"</span>,
+        <span class="string">"🎪 played hide and seek"</span>,
+        <span class="string">"🎨 made bunny art"</span>,
+        <span class="string">"🎵 danced to music"</span>
+    ]
+    
+    activity = random.choice(activities)
+    
+    print_colored(<span class="string">f"🎮 Playtime with {pet['name']}!"</span>, Colors.BLUE)
+    typewriter_effect(<span class="string">f"You and {pet['name']} {activity}!"</span>)
+    
+    loading_animation(<span class="string">"Playing"</span>, <span class="number">2</span>)
+    
+    <span class="comment"># TODO: Apply play effects:</span>
+    <span class="comment"># Increase happiness by 2 (max 10)</span>
+    <span class="comment"># If happiness > 7: increase health by 1 (max 10)</span>
+    <span class="comment"># Increase hunger by 2 (max 10)</span>
+    <span class="comment"># If hunger > 5: decrease health by 2 (min 0)</span>
+    
+    <span class="comment"># PROVIDED: Dynamic responses</span>
+    <span class="keyword">if</span> pet[<span class="string">"happiness"</span>] >= <span class="number">9</span>:
+        typewriter_effect(<span class="string">f"🌟 {pet['name']} is absolutely thrilled!"</span>)
+        typewriter_effect(<span class="string">"Your bunny is bouncing with pure joy! 🦘"</span>)
+    <span class="keyword">elif</span> pet[<span class="string">"happiness"</span>] >= <span class="number">7</span>:
+        typewriter_effect(<span class="string">f"😄 {pet['name']} had a wonderful time!"</span>)
+    <span class="keyword">else</span>:
+        typewriter_effect(<span class="string">f"🙂 {pet['name']} enjoyed playing with you!"</span>)
+    
+    display_bunny_status(pet)
+    <span class="keyword">input</span>(<span class="string">"\n🎯 Press Enter to continue..."</span>)
+    <span class="keyword">return</span> pet
+
+<span class="comment"># PROVIDED: Welcome screen</span>
+<span class="keyword">def</span> <span class="string">welcome_screen</span>(pet):
+    <span class="string">"""Display engaging welcome screen"""</span>
+    print_title()
+    
+    typewriter_effect(<span class="string">"Welcome to the most adorable pet game ever! 🐰"</span>, <span class="number">0.05</span>)
+    time.sleep(<span class="number">0.5</span>)
+    
+    print_colored(<span class="string">f"📋 Loading {pet['name']}'s data..."</span>, Colors.BLUE)
+    loading_animation(<span class="string">""</span>, <span class="number">2</span>)
+    
+    typewriter_effect(<span class="string">f"🎉 {pet['name']} is ready to play!"</span>)
+    <span class="keyword">print</span>()
+    
+    <span class="comment"># Show bunny waking up</span>
+    typewriter_effect(<span class="string">"Your bunny is waking up..."</span>)
+    time.sleep(<span class="number">1</span>)
+    <span class="keyword">print</span>(<span class="string">"      /|   /|"</span>)
+    time.sleep(<span class="number">0.5</span>)
+    <span class="keyword">print</span>(<span class="string">"      ( -.- )"</span>)
+    time.sleep(<span class="number">0.5</span>)
+    <span class="keyword">print</span>(<span class="string">"\r      ( o.o )"</span>)  <span class="comment"># Replace previous line</span>
+    time.sleep(<span class="number">0.5</span>)
+    <span class="keyword">print</span>(<span class="string">"      o_(\")(\")"</span>)
+    
+    typewriter_effect(<span class="string">f"Good morning, {pet['name']}! 🌅"</span>)
+    display_bunny_status(pet)
+
+<span class="comment"># TODO 7: Complete the main function</span>
+<span class="keyword">def</span> <span class="string">main</span>():
+    <span class="string">"""Main game loop with enhanced experience"""</span>
+    <span class="comment"># TODO: Load pet data using load_bunny_data()</span>
+    
+    <span class="comment"># TODO: Display welcome screen</span>
+    
+    <span class="comment"># TODO: Create main game loop:</span>
+    <span class="comment"># 1. Display menu and get user choice</span>
+    <span class="comment"># 2. If choice is 1: feed bunny</span>
+    <span class="comment"># 3. If choice is 2: play with bunny</span>
+    <span class="comment"># 4. If choice is 3: display status</span>
+    <span class="comment"># 5. If choice is 4: save data and quit</span>
+    
+    <span class="comment"># PROVIDED: Exit message</span>
+    save_bunny_data(pet)
+    print_colored(<span class="string">"💾 Saving game data..."</span>, Colors.GREEN)
+    loading_animation(<span class="string">""</span>, <span class="number">1</span>)
+    print_colored(<span class="string">f"👋 Goodbye! {pet['name']} will miss you!"</span>, Colors.HEADER)
+    print_colored(<span class="string">"Come back soon! 🐰💕"</span>, Colors.HEADER)
+
+<span class="comment"># Your program starts here</span>
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    main()</code></pre>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>🎯 Implementation Tips</h3>
+                <div class="tip-box">
+                    <h4>💡 Programming Tips</h4>
+                    <ul>
+                        <li><strong>Functions:</strong> Each function should do one specific task</li>
+                        <li><strong>Variables:</strong> Use meaningful names like <code>old_hunger</code> instead of <code>x</code></li>
+                        <li><strong>Error Handling:</strong> Always use try/except for file operations</li>
+                        <li><strong>Bounds Checking:</strong> Use <code>max(0, value)</code> and <code>min(10, value)</code> to keep stats in range</li>
+                        <li><strong>Testing:</strong> Test each function individually before combining</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🐛 Common Mistakes to Avoid</h4>
+                    <ul>
+                        <li>Forgetting to return values from functions</li>
+                        <li>Not handling the FileNotFoundError for first-time users</li>
+                        <li>Letting stats go below 0 or above 10</li>
+                        <li>Not updating the pet variable after feeding/playing</li>
+                        <li>Missing the <code>global</code> keyword if using global variables</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🏆 Extension Challenges</h4>
+                    <ul>
+                        <li>Add different food types with different effects</li>
+                        <li>Create multiple pets that players can choose from</li>
+                        <li>Add an achievement system for good pet care</li>
+                        <li>Implement a day/night cycle that affects the bunny</li>
+                        <li>Add sound effects or music (using the <code>playsound</code> library)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>✅ Testing Checklist</h3>
+                <div class="requirements-list">
+                    <h4>🔍 Test Your Game</h4>
+                    <ul>
+                        <li>Does the game load and display the welcome screen?</li>
+                        <li>Can you feed the bunny and see hunger decrease?</li>
+                        <li>Can you play with the bunny and see happiness increase?</li>
+                        <li>Do the bunny's face and message change based on mood?</li>
+                        <li>Does the game save data when you quit?</li>
+                        <li>Does the game load your saved bunny when you restart?</li>
+                        <li>Are all stats properly bounded (0-10)?</li>
+                        <li>Does input validation work for the menu?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(function() {
+                button.textContent = '✅ Copied!';
+                button.style.background = '#16a34a';
+                
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '#3b82f6';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+                button.textContent = '❌ Failed';
+                button.style.background = '#dc2626';
+                
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                    button.style.background = '#3b82f6';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

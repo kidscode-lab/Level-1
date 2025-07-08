@@ -1,0 +1,69 @@
+# L1 - Lesson 05
+#   Exercise Template
+#   Video Game High Score Tracker Exercise
+
+def get_gamer_info():
+    """Get gamer username and favorite game from user"""
+    # TODO: Ask user for username
+    # TODO: Ask user for favorite game
+    # TODO: Return both values
+    pass
+
+def get_high_scores():
+    """Get 5 gaming session scores from user"""
+    scores = []
+    # TODO: Use a loop to get 5 scores
+    # TODO: Add each score to the scores list
+    # TODO: Return the scores list
+    return scores
+
+def calculate_stats(scores):
+    """Calculate highest, lowest, and average scores"""
+    # TODO: Find the highest score using max()
+    # TODO: Find the lowest score using min()
+    # TODO: Calculate average using sum() and len()
+    # TODO: Return all three values
+    pass
+
+def determine_rank(average):
+    """Determine gamer rank based on average score"""
+    # TODO: Use if-elif-else to determine rank
+    # Legend: 90+, Pro: 75-89, Advanced: 60-74, 
+    # Intermediate: 40-59, Beginner: 0-39
+    pass
+
+def create_profile(username, game, highest, lowest, average, rank):
+    """Create a formatted gamer profile"""
+    # TODO: Create a nice looking profile string
+    # TODO: Include all the information
+    # TODO: Return the profile string
+    pass
+
+def save_profile(profile, username):
+    """Save profile to a text file"""
+    filename = f"{username.lower()}_profile.txt"
+    # TODO: Open file with UTF-8 encoding
+    # TODO: Write the profile to the file
+    # TODO: Print success message
+    pass
+
+def main():
+    """Main program function"""
+    print("🎮 WELCOME TO GAMING TRACKER! 🎮")
+    
+    # TODO: Call get_gamer_info() and store results
+    
+    # TODO: Call get_high_scores() and store results
+    
+    # TODO: Call calculate_stats() and store results
+    
+    # TODO: Call determine_rank() and store result
+    
+    # TODO: Call create_profile() and store result
+    
+    # TODO: Display the profile
+    
+    # TODO: Call save_profile() to save to file
+
+if __name__ == "__main__":
+    main()
