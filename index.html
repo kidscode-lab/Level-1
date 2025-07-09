@@ -189,7 +189,8 @@
 
         .tile-description {
             color: #6b7280;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
+            font-weight: bold;
             line-height: 1.5;
         }
 
@@ -285,14 +286,13 @@
                 <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
                 <div class="brand-logo-text">KidsCode Lab</div>
             </div>
-            <h2>Learn Programming with Fun!</h2>
-            <p>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
-            We make coding fun, interactive, and easy to understand for young minds.</p>
+            <h2>Learn Programming with Fun!</h1>
+            <h3><p>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
+            We make coding fun, interactive, and easy to understand for young minds.</p></h2>
         </div>
 
         <div class="course-materials">
             <h3>📖 Course Materials Repository</h3>
-            
             <div class="materials-grid" id="materialsGrid">
                 <!-- Materials will be populated by JavaScript -->
             </div>
@@ -323,9 +323,7 @@
                 return true;
             } catch (error) {
                 console.error('Error loading course materials:', error);
-                // Fallback to default materials if JSON fails to load
-                // courseMaterials = getDefaultCourseMaterials();
-                // console.log('Using fallback course materials');
+                window.alert('Error loading course materials from file: /data/courseMaterials.json')
                 return false;
             }
         }
