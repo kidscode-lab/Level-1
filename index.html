@@ -308,78 +308,27 @@
 
     <script>
         // Course Materials Array - Easy to update and maintain
-        var courseMaterials = [
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 1",
-                description: "Course Material Repository for Lesson 1",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson01",
-                icon: "📝"
-            },
-            {
-                level: "Level 1", 
-                title: "Material Repository - Lesson 2",
-                description: "Course Material Repository for Lesson 2",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson02",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 3",
-                description: "Course Material Repository for Lesson 3",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson03",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 4",
-                description: "Course Material Repository for Lesson 4",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson04",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 4",
-                description: "Explainations: Lists, Tuples, Sets, and Dictionaries",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/https://kidscode-lab.github.io/Level-1/Lesson04/illustration-L1-04-dataStructures.html",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 5",
-                description: "Course Material Repository for Lesson 5",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson05",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 6",
-                description: "Course Material Repository for Lesson 4",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson06",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 7",
-                description: "Course Material Repository for Lesson 7",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson07",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 8",
-                description: "Course Material Repository for Lesson 8",
-                url: "https://github.com/kidscode-lab/Level-1/tree/main/Lesson08",
-                icon: "📋"
-            },
-            {
-                level: "Level 1",
-                title: "Material Repository - Lesson 7 & 8",
-                description: "Virtual Bunny Pet Game",
-                url: "https://kidscode-lab.github.io/Level-1/Lesson07/illustration-L1-07-Bunny.html",
-                icon: "📋"
+        var courseMaterials = [];
+
+        // Function to load course materials from JSON file
+        async function loadCourseMaterials() {
+            try {
+                const response = await fetch('data/courseMaterials.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                courseMaterials = data.courseMaterials;
+                console.log('Course materials loaded successfully:', courseMaterials.length, 'items');
+                return true;
+            } catch (error) {
+                console.error('Error loading course materials:', error);
+                // Fallback to default materials if JSON fails to load
+                // courseMaterials = getDefaultCourseMaterials();
+                // console.log('Using fallback course materials');
+                return false;
             }
-        ];
+        }
 
         // Function to generate material tiles
         function generateMaterialTiles() {
@@ -410,7 +359,15 @@
         }
 
         // Initialize the page
-        window.addEventListener('load', function() {
+        window.addEventListener('load', async function() {
+            // Show loading message
+            var grid = document.getElementById('materialsGrid');
+            if (grid) {
+                grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #6b7280;">Loading course materials...</div>';
+            }
+
+            // Load course materials and generate tiles
+            await loadCourseMaterials();
             generateMaterialTiles();
         });
     </script>
