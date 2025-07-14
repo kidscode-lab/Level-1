@@ -2,6 +2,13 @@
     "courseMaterials": [
         {
             "level": "Level 1",
+            "title": "Quick Reference Guide",
+            "description": "Quick Syntax and Reference Guide",
+            "url": "https://kidscode-lab.github.io/Level-1/Cheatsheet/python-cheatsheet.html",
+            "icon": "📝"
+        },
+        {
+            "level": "Level 1",
             "title": "Material Repository - Lesson 1",
             "description": "Course Material Repository for Lesson 1",
             "url": "https://github.com/kidscode-lab/Level-1/tree/main/Lesson01",
