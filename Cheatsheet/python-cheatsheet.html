@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Fundamentals Cheatsheet - KidsCode Lab</title>
+    <link rel="stylesheet" href="python-cheatsheet.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand-logo">
+                <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <div class="brand-logo-text">KidsCode Lab</div>
+            </div>
+            <h3>🐍 Python Fundamentals - Quick Reference Guide</h3>
+        </div>
+
+        <div class="lesson-nav" id="lessonNav">
+            <!-- Lesson tabs will be populated by JavaScript -->
+        </div>
+
+        <div class="content" id="content">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading lesson content...</p>
+            </div>
+            <!-- Lesson content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const CONTENT_URL = 'python-lessons.json';
+
+        class PythonCheatsheet {
+            constructor() {
+                this.currentLesson = 1;
+                this.lessons = {};
+                this.init();
+            }
+
+            async init() {
+                try {
+                    await this.loadContent();
+                    this.renderLessonTabs();
+                    this.showLesson(this.currentLesson);
+                } catch (error) {
+                    console.error('Error loading content:', error);
+                    this.showError();
+                }
+            }
+
+            async loadContent() {
+                // Try to fetch from JSON file first (works on web servers like GitHub Pages)
+                try {
+                    const response = await fetch(CONTENT_URL);
+                    if (response.ok) {
+                        this.lessons = await response.json();
+                        return;
+                    }
+                } catch (error) {
+                    console.warn('Could not fetch JSON file, using inline data:', error);
+                }
+                
+                // Fallback to inline data (useful for local development)
+                this.lessons = {
+                    "1": {
+                        "title": "Python Fundamentals",
+                        "topics": [
+                            {
+                                "title": "Basic Syntax",
+                                "type": "syntax",
+                                "icon": "{ }",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "Python uses simple, clean syntax that's easy to read and write."
+                                    },
+                                    {
+                                        "type": "code",
+                                        "content": "print('Hello, World!')\nprint(\"Python is awesome!\")\n\n# This is a comment\n# Python is case-sensitive"
+                                    },
+                                    {
+                                        "type": "tip",
+                                        "title": "Syntax Rules",
+                                        "content": "• No semicolons needed at end of lines\n• Indentation matters in Python\n• Use # for comments\n• No space between function name and parentheses"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Data Types",
+                                "type": "data-types",
+                                "icon": "123",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "Python has several built-in data types for storing different kinds of information."
+                                    },
+                                    {
+                                        "type": "code",
+                                        "content": "# Integer (whole numbers)\nage = 13\nscore = 100\n\n# Float (decimal numbers)\nprice = 12.99\nheight = 5.8\n\n# String (text)\nname = \"Alice\"\nmessage = 'Hello World'\n\n# Boolean (True/False)\nis_student = True\nis_adult = False"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "2": {
+                        "title": "Control Structures",
+                        "topics": [
+                            {
+                                "title": "If Statements",
+                                "type": "conditionals",
+                                "icon": "?",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "If statements allow your program to make decisions based on conditions."
+                                    },
+                                    {
+                                        "type": "code",
+                                        "content": "age = 16\n\nif age >= 18:\n    print(\"You can vote!\")\nelse:\n    print(\"Too young to vote\")\n\n# Multiple conditions\nif age < 13:\n    print(\"Child\")\nelif age < 20:\n    print(\"Teenager\")\nelse:\n    print(\"Adult\")"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "3": {
+                        "title": "Loops",
+                        "topics": [
+                            {
+                                "title": "For Loops",
+                                "type": "loops",
+                                "icon": "🔄",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "For loops repeat code a specific number of times."
+                                    },
+                                    {
+                                        "type": "code",
+                                        "content": "# Loop through numbers\nfor i in range(5):\n    print(f\"Count: {i}\")\n\n# Loop through a list\nfruits = ['apple', 'banana', 'orange']\nfor fruit in fruits:\n    print(f\"I like {fruit}\")"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "4": {
+                        "title": "Data Structures",
+                        "topics": [
+                            {
+                                "title": "Lists",
+                                "type": "data-structures",
+                                "icon": "[ ]",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "content": "Lists are ordered collections that can store multiple items."
+                                    },
+                                    {
+                                        "type": "code",
+                                        "content": "# Creating lists\nfruits = ['apple', 'banana', 'orange']\nnumbers = [1, 2, 3, 4, 5]\n\n# Adding items\nfruits.append('grape')\n\n# Accessing items\nprint(fruits[0])  # First item\nprint(fruits[-1]) # Last item"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                };
+            }
+
+            renderLessonTabs() {
+                const nav = document.getElementById('lessonNav');
+                nav.innerHTML = '';
+
+                Object.keys(this.lessons).forEach(lessonNum => {
+                    const lesson = this.lessons[lessonNum];
+                    const tab = document.createElement('div');
+                    tab.className = 'lesson-tab' + (lessonNum == this.currentLesson ? ' active' : '');
+                    tab.textContent = 'Lesson ' + lessonNum + ': ' + lesson.title;
+                    tab.onclick = () => this.showLesson(lessonNum);
+                    nav.appendChild(tab);
+                });
+            }
+
+            showLesson(lessonNum) {
+                this.currentLesson = lessonNum;
+                
+                document.querySelectorAll('.lesson-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                const tabs = document.querySelectorAll('.lesson-tab');
+                if (tabs[lessonNum - 1]) {
+                    tabs[lessonNum - 1].classList.add('active');
+                }
+
+                const content = document.getElementById('content');
+                const lesson = this.lessons[lessonNum];
+                
+                if (!lesson) {
+                    content.innerHTML = '<p>Lesson not found.</p>';
+                    return;
+                }
+
+                const topicsHtml = lesson.topics.map(topic => this.renderTopic(topic)).join('');
+                const html = '<div class="topics-grid">' + topicsHtml + '</div>';
+                content.innerHTML = html;
+                
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) {
+                    loadingEl.style.display = 'none';
+                }
+            }
+
+            renderTopic(topic) {
+                let html = '<div class="topic-section ' + topic.type + '">';
+                html += '<h3>';
+                html += '<span class="topic-icon">' + topic.icon + '</span>';
+                html += topic.title;
+                html += '</h3>';
+
+                topic.content.forEach(item => {
+                    if (item.type === 'text') {
+                        html += '<p style="margin-bottom: 8px; font-size: 13px;">' + item.content + '</p>';
+                    } else if (item.type === 'code') {
+                        const codeId = 'code_' + Math.random().toString(36).substr(2, 9);
+                        html += '<div class="code-block" style="position: relative;">';
+                        html += '<button class="copy-btn" onclick="copyCode(\'' + codeId + '\')">📋</button>';
+                        html += '<code id="' + codeId + '">' + this.highlightCode(item.content) + '</code>';
+                        html += '</div>';
+                    } else if (item.type === 'tip') {
+                        html += '<div class="tip-box">';
+                        html += '<h4>💡 ' + item.title + '</h4>';
+                        html += '<p>' + item.content.replace(/\n/g, '<br>') + '</p>';
+                        html += '</div>';
+                    } else if (item.type === 'example') {
+                        html += '<div class="example-box">';
+                        html += '<h4>📝 ' + item.title + '</h4>';
+                        html += '<p>' + item.content.replace(/\n/g, '<br>') + '</p>';
+                        html += '</div>';
+                    } else if (item.type === 'rules-table') {
+                        html += this.renderTable(item);
+                    }
+                });
+
+                html += '</div>';
+                return html;
+            }
+
+            renderTable(tableData) {
+                let html = '<h4>' + tableData.title + '</h4>';
+                html += '<table class="rules-table">';
+                html += '<thead><tr>';
+                
+                tableData.headers.forEach(header => {
+                    html += '<th>' + header + '</th>';
+                });
+                
+                html += '</tr></thead><tbody>';
+
+                tableData.rows.forEach(row => {
+                    html += '<tr>';
+                    row.forEach((cell, index) => {
+                        let cellClass = '';
+                        if (index === 1 && cell) cellClass = 'valid';
+                        if (index === 2 && cell) cellClass = 'invalid';
+                        html += '<td class="' + cellClass + '">' + cell + '</td>';
+                    });
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table>';
+                return html;
+            }
+
+            highlightCode(code) {
+                // Escape HTML entities
+                let processedCode = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                
+                // Process line by line to handle comments safely
+                let codeLines = processedCode.split('\n');
+                let resultLines = [];
+                
+                for (let i = 0; i < codeLines.length; i++) {
+                    let line = codeLines[i];
+                    let commentPos = line.indexOf('#');
+                    
+                    if (commentPos >= 0) {
+                        let beforeComment = line.substring(0, commentPos);
+                        let comment = line.substring(commentPos);
+                        
+                        // Process the part before comment for other syntax highlighting
+                        beforeComment = this.highlightStrings(beforeComment);
+                        beforeComment = this.highlightNumbers(beforeComment);
+                        beforeComment = this.highlightKeywords(beforeComment);
+                        beforeComment = this.highlightFunctions(beforeComment);
+                        
+                        // Add comment with proper styling
+                        line = beforeComment + '<span class="code-comment">' + comment + '</span>';
+                    } else {
+                        // No comment, process entire line
+                        line = this.highlightStrings(line);
+                        line = this.highlightNumbers(line);
+                        line = this.highlightKeywords(line);
+                        line = this.highlightFunctions(line);
+                    }
+                    
+                    resultLines.push(line);
+                }
+                
+                return resultLines.join('\n');
+            }
+            
+            highlightStrings(code) {
+                // Handle double quotes
+                let result = code.replace(/"[^"]*"/g, function(match) {
+                    return '<span class="code-string">' + match + '</span>';
+                });
+                
+                // Handle single quotes
+                result = result.replace(/'[^']*'/g, function(match) {
+                    return '<span class="code-string">' + match + '</span>';
+                });
+                
+                return result;
+            }
+            
+            highlightNumbers(code) {
+                return code.replace(/\b\d+\.?\d*\b/g, function(match) {
+                    return '<span class="code-number">' + match + '</span>';
+                });
+            }
+            
+            highlightKeywords(code) {
+                const keywords = ['def', 'class', 'if', 'elif', 'else', 'for', 'while', 'try', 'except', 'finally', 'with', 'as', 'import', 'from', 'return', 'yield', 'break', 'continue', 'pass', 'lambda', 'and', 'or', 'not', 'in', 'is', 'True', 'False', 'None'];
+                let result = code;
+                
+                keywords.forEach(keyword => {
+                    // More specific pattern to avoid matching inside HTML tags and comments
+                    const keywordRegex = new RegExp('\\b' + keyword + '\\b(?![^<]*>)(?![^<]*</span>)', 'g');
+                    result = result.replace(keywordRegex, function(match) {
+                        return '<span class="code-keyword">' + match + '</span>';
+                    });
+                });
+                
+                return result;
+            }
+            
+            highlightFunctions(code) {
+                const functions = ['print', 'input', 'len', 'str', 'int', 'float', 'bool', 'list', 'dict', 'set', 'tuple', 'range', 'enumerate', 'zip', 'map', 'filter', 'sorted', 'sum', 'max', 'min', 'abs', 'round', 'type', 'isinstance'];
+                let result = code;
+                
+                functions.forEach(func => {
+                    // More specific pattern to avoid matching inside HTML tags and comments
+                    const funcRegex = new RegExp('\\b' + func + '\\b(?![^<]*>)(?![^<]*</span>)', 'g');
+                    result = result.replace(funcRegex, function(match) {
+                        return '<span class="code-function">' + match + '</span>';
+                    });
+                });
+                
+                return result;
+            }
+
+            showError() {
+                const content = document.getElementById('content');
+                content.innerHTML = '<div style="text-align: center; padding: 50px;">';
+                content.innerHTML += '<h3 style="color: #dc3545;">❌ Error Loading Content</h3>';
+                content.innerHTML += '<p>Could not load the lesson content. Please check if the JSON file exists and is properly formatted.</p>';
+                content.innerHTML += '</div>';
+            }
+        }
+
+        function copyCode(codeId) {
+            const codeElement = document.getElementById(codeId);
+            const code = codeElement.textContent || codeElement.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const button = codeElement.parentElement.querySelector('.copy-btn');
+                const originalText = button.textContent;
+                button.textContent = '✅';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            new PythonCheatsheet();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+{
+  "1": {
+    "title": "Python Fundamentals",
+    "topics": [
+      {
+        "title": "Basic Syntax",
+        "type": "syntax",
+        "icon": "{ }",
+        "content": [
+          {
+            "type": "text",
+            "content": "Python uses simple, clean syntax that's easy to read and write."
+          },
+          {
+            "type": "code",
+            "content": "print('Hello, World!')\nprint(\"Python is awesome!\")\n\n# This is a comment\n# Python is case-sensitive"
+          },
+          {
+            "type": "tip",
+            "title": "Syntax Rules",
+            "content": "• No semicolons needed at end of lines\n• Indentation matters in Python\n• Use # for comments\n• No space between function name and parentheses"
+          }
+        ]
+      },
+      {
+        "title": "Data Types",
+        "type": "data-types",
+        "icon": "123",
+        "content": [
+          {
+            "type": "text",
+            "content": "Python has several built-in data types for storing different kinds of information."
+          },
+          {
+            "type": "code",
+            "content": "# Integer (whole numbers)\nage = 13\nscore = 100\n\n# Float (decimal numbers)\nprice = 12.99\nheight = 5.8\n\n# String (text)\nname = \"Alice\"\nmessage = 'Hello World'\n\n# Boolean (True/False)\nis_student = True\nis_adult = False"
+          },
+          {
+            "type": "example",
+            "title": "Data Type Examples",
+            "content": "Integer: 1, 5, 20, 1000, 50200\nFloat: 3.5, 4.78, 10.0, 100.45\nString: \"Boy\", \"2\", \"3.5\", \"%^&*\"\nBoolean: True, False"
+          }
+        ]
+      },
+      {
+        "title": "Variables",
+        "type": "variables",
+        "icon": "x",
+        "content": [
+          {
+            "type": "text",
+            "content": "Variables are like containers that store data values. Think of them as labeled boxes in computer memory."
+          },
+          {
+            "type": "code",
+            "content": "# Creating variables\nmyage = 13\nname = \"Alice\"\ngrade = 7.5\n\n# Using variables\nprint(f\"Hello! I'm {name}\")\nprint(f\"I'm {myage} years old\")\nprint(f\"My grade is {grade}\")"
+          },
+          {
+            "type": "rules-table",
+            "title": "Variable Naming Rules",
+            "headers": ["Rule", "Valid ✓", "Invalid ✗"],
+            "rows": [
+              ["Start with letter or underscore", "myName, _address", "%myName"],
+              ["Cannot start with number", "types3", "3types"],
+              ["Only letters, numbers, underscore", "user_10", "user_10**"],
+              ["Case sensitive", "age ≠ Age ≠ AGE", ""],
+              ["No Python keywords", "print_out", "print = 2"]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Input & Output",
+        "type": "input-output",
+        "icon": "⌨",
+        "content": [
+          {
+            "type": "text",
+            "content": "Get input from users and display output using print() and input() functions."
+          },
+          {
+            "type": "code",
+            "content": "# Getting user input\nname = input(\"What's your name? \")\nage = int(input(\"How old are you? \"))\nprice = float(input(\"Enter price: \"))\n\n# Displaying output\nprint(f\"Hello {name}!\")\nprint(f\"You are {age} years old\")\nprint(f\"Price: ${price}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Important Notes",
+            "content": "• input() always returns a string\n• Use int() to convert to whole numbers\n• Use float() to convert to decimal numbers\n• Use f-strings for easy variable insertion"
+          }
+        ]
+      },
+      {
+        "title": "Math Operators",
+        "type": "operators",
+        "icon": "+",
+        "content": [
+          {
+            "type": "text",
+            "content": "Python provides various operators for mathematical calculations."
+          },
+          {
+            "type": "code",
+            "content": "# Basic math operators\na = 10\nb = 3\n\nprint(a + b)    # Addition: 13\nprint(a - b)    # Subtraction: 7\nprint(a * b)    # Multiplication: 30\nprint(a / b)    # Division: 3.333...\nprint(a % b)    # Modulus (remainder): 1\nprint(a ** b)   # Exponent: 1000"
+          },
+          {
+            "type": "example",
+            "title": "String vs Math Operations",
+            "content": "Numbers: 3 + 5 = 8\nStrings: \"3\" + \"5\" = \"35\"\nNumbers: 4 * 3 = 12\nStrings: \"4\" * 3 = \"444\""
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "title": "Control Structures & Random",
+    "topics": [
+      {
+        "title": "Random Numbers",
+        "type": "random",
+        "icon": "🎲",
+        "content": [
+          {
+            "type": "text",
+            "content": "Generate random numbers using the random library for games, simulations, and testing."
+          },
+          {
+            "type": "code",
+            "content": "import random\n\n# Generate random integer between 1 and 6 (dice)\ndice = random.randint(1, 6)\nprint(dice)\n\n# Generate 6 random numbers for lottery\nfor i in range(6):\n    number = random.randint(1, 49)\n    print(number)"
+          },
+          {
+            "type": "tip",
+            "title": "Random Functions",
+            "content": "• random.randint(a, b) - random integer between a and b (inclusive)\n• Must import random library first\n• Great for games, dice rolls, lottery numbers"
+          }
+        ]
+      },
+      {
+        "title": "If Statements",
+        "type": "conditionals",
+        "icon": "?",
+        "content": [
+          {
+            "type": "text",
+            "content": "If statements allow your program to make decisions based on conditions."
+          },
+          {
+            "type": "code",
+            "content": "age = 16\n\nif age >= 18:\n    print(\"You can vote!\")\nelse:\n    print(\"Too young to vote\")\n\n# Multiple conditions\nif age < 13:\n    print(\"Child\")\nelif age < 20:\n    print(\"Teenager\")\nelse:\n    print(\"Adult\")"
+          },
+          {
+            "type": "tip",
+            "title": "If Statement Rules",
+            "content": "• Must end with colon (:)\n• Code inside must be indented (Tab or 4 spaces)\n• Only one if block per decision\n• Zero or more elif blocks\n• At most one else block"
+          }
+        ]
+      },
+      {
+        "title": "Comparison Operators",
+        "type": "comparison",
+        "icon": "=",
+        "content": [
+          {
+            "type": "text",
+            "content": "Comparison operators compare values and return True or False."
+          },
+          {
+            "type": "rules-table",
+            "title": "Comparison Operators",
+            "headers": ["Operator", "Name", "Example"],
+            "rows": [
+              ["==", "Equal to", "age == 18"],
+              ["!=", "Not equal to", "age != 18"],
+              ["<", "Less than", "age < 18"],
+              ["<=", "Less than or equal", "age <= 18"],
+              [">", "Greater than", "age > 18"],
+              [">=", "Greater than or equal", "age >= 18"]
+            ]
+          },
+          {
+            "type": "code",
+            "content": "# Password check example\npassword = input(\"Enter password: \")\nif password == \"python123\":\n    print(\"Access granted!\")\nelse:\n    print(\"Access denied!\")"
+          }
+        ]
+      },
+      {
+        "title": "Boolean Operators",
+        "type": "boolean",
+        "icon": "∧",
+        "content": [
+          {
+            "type": "text",
+            "content": "Boolean operators combine conditions and work with True/False values."
+          },
+          {
+            "type": "code",
+            "content": "age = 25\nis_student = True\nis_weekend = True\nis_holiday = False\n\n# AND operator - both must be True\nif age > 18 and is_student:\n    print(\"Eligible for student discount\")\n\n# OR operator - at least one must be True\nif is_weekend or is_holiday:\n    print(\"You can sleep in!\")\n\n# NOT operator - reverses True/False\nif not is_holiday:\n    print(\"It's a regular day\")"
+          },
+          {
+            "type": "example",
+            "title": "Boolean Values",
+            "content": "Only two values: True and False\nFirst letter must be uppercase\nUsed in conditions and logical operations"
+          }
+        ]
+      },
+      {
+        "title": "Range Function",
+        "type": "range",
+        "icon": "📊",
+        "content": [
+          {
+            "type": "text",
+            "content": "The range() function generates sequences of numbers, commonly used with loops."
+          },
+          {
+            "type": "code",
+            "content": "# range(stop) - from 0 to stop-1\nprint(list(range(5)))        # [0, 1, 2, 3, 4]\n\n# range(start, stop) - from start to stop-1\nprint(list(range(2, 8)))     # [2, 3, 4, 5, 6, 7]\n\n# range(start, stop, step) - with custom step\nprint(list(range(0, 10, 2))) # [0, 2, 4, 6, 8]\n\n# Countdown with negative step\nprint(list(range(10, 0, -1))) # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]"
+          },
+          {
+            "type": "tip",
+            "title": "Range Parameters",
+            "content": "• start: beginning number (default: 0)\n• stop: end number (not included)\n• step: interval between numbers (default: 1)\n• Commonly used with for loops"
+          }
+        ]
+      },
+      {
+        "title": "For Loops",
+        "type": "loops",
+        "icon": "🔄",
+        "content": [
+          {
+            "type": "text",
+            "content": "For loops repeat code a specific number of times or iterate through sequences."
+          },
+          {
+            "type": "code",
+            "content": "# Loop through numbers\nfor i in range(1, 6):\n    print(f\"Count: {i}\")\n\n# Loop through a list\nfruits = ['apple', 'banana', 'orange']\nfor fruit in fruits:\n    print(f\"I like {fruit}\")\n\n# Exercise 2 Review: Random + Loop + Conditions\nimport random\nfor n in range(10):\n    num = random.randint(1, 100)\n    if num % 2 == 0:\n        print(f\"{num} - num is even\")\n    elif num > 50:\n        print(f\"{num} - High Odd\")\n    else:\n        print(f\"{num}\")"
+          },
+          {
+            "type": "tip",
+            "title": "For Loop Rules",
+            "content": "• Must end with colon (:)\n• Code inside must be indented\n• Variable gets each item in sequence\n• Can loop through ranges, lists, strings\n• Use when you know how many times to repeat"
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "title": "Advanced Loops & Control",
+    "topics": [
+      {
+        "title": "While Loops",
+        "type": "while-loops",
+        "icon": "⟲",
+        "content": [
+          {
+            "type": "text",
+            "content": "While loops keep running as long as a condition is True. Use when you don't know exactly how many times to repeat."
+          },
+          {
+            "type": "code",
+            "content": "# Basic while loop\nn = 10\nwhile n > 0:\n    print(n)\n    n -= 1  # Same as n = n - 1\n\n# Menu system example\nbalance = 1000\nwhile True:\n    print(\"\\nMenu:\")\n    print(\"1. Check Balance\")\n    print(\"2. Exit\")\n    choice = input(\"Enter choice: \")\n    if choice == \"1\":\n        print(f\"Balance: ${balance}\")\n    elif choice == \"2\":\n        print(\"Goodbye!\")\n        break  # Exit the loop"
+          },
+          {
+            "type": "tip",
+            "title": "While Loop Rules",
+            "content": "• Must end with colon (:)\n• Code inside must be indented\n• Update the condition variable inside the loop\n• Use 'break' to exit the loop early\n• Be careful to avoid infinite loops!"
+          }
+        ]
+      },
+      {
+        "title": "For vs While Loops",
+        "type": "loop-comparison",
+        "icon": "⚖",
+        "content": [
+          {
+            "type": "text",
+            "content": "Choose the right loop for your situation: for loops when you know how many times, while loops when you don't."
+          },
+          {
+            "type": "rules-table",
+            "title": "Loop Comparison",
+            "headers": ["Aspect", "For Loop", "While Loop"],
+            "rows": [
+              ["Usage", "Known number of iterations", "Condition-based iterations"],
+              ["Control Variable", "Managed automatically", "Update manually"],
+              ["Example Use", "Iterate through range/list", "Wait for user input"],
+              ["Risk", "Less prone to infinite loops", "Can cause infinite loops"],
+              ["Best For", "Counting, iterating sequences", "Menus, user input validation"]
+            ]
+          },
+          {
+            "type": "code",
+            "content": "# Same task, different approaches\n# Counting down with FOR loop\nfor n in range(10, 0, -1):\n    print(n)\n\n# Counting down with WHILE loop\nn = 10\nwhile n > 0:\n    print(n)\n    n -= 1"
+          }
+        ]
+      },
+      {
+        "title": "Loop Control",
+        "type": "loop-control",
+        "icon": "🛑",
+        "content": [
+          {
+            "type": "text",
+            "content": "Control loop execution with break and continue statements."
+          },
+          {
+            "type": "code",
+            "content": "# Break - exit the loop completely\nfor i in range(10):\n    if i == 5:\n        break  # Stop when i equals 5\n    print(i)  # Prints: 0, 1, 2, 3, 4\n\n# Continue - skip to next iteration\nfor i in range(10):\n    if i % 2 == 0:\n        continue  # Skip even numbers\n    print(i)  # Prints: 1, 3, 5, 7, 9\n\n# Lab example: Sum positive numbers\ntotal = 0\nwhile True:\n    num = int(input(\"Enter a number: \"))\n    if num < 0:\n        break  # Stop if negative\n    total += num\nprint(f\"Sum of positive numbers: {total}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Control Statements",
+            "content": "• break: Exits the loop completely\n• continue: Skips to the next iteration\n• Works in both for and while loops\n• Use break to exit infinite loops safely"
+          }
+        ]
+      },
+      {
+        "title": "Game Programming",
+        "type": "games",
+        "icon": "🎮",
+        "content": [
+          {
+            "type": "text",
+            "content": "Combine loops, conditions, and random numbers to create interactive games."
+          },
+          {
+            "type": "code",
+            "content": "# Guess the Number Game\nimport random\n\nnumber = random.randint(1, 100)\nattempts = 5\n\nprint(\"Guess the number between 1 and 100!\")\nprint(f\"You have {attempts} attempts.\")\n\nfor attempt in range(attempts):\n    guess = int(input(f\"Attempt {attempt + 1}: \"))\n    \n    if guess == number:\n        print(\"BINGO! You won!\")\n        break\n    elif guess < number:\n        print(\"Too low!\")\n    else:\n        print(\"Too high!\")\n    \n    if attempt == attempts - 1:\n        print(f\"Game over! The number was {number}\")"
+          },
+          {
+            "type": "example",
+            "title": "Game Elements",
+            "content": "Random number generation\nUser input validation\nLoop for multiple attempts\nConditional feedback\nGame over conditions"
+          }
+        ]
+      }
+    ]
+  },
+  "4": {
+    "title": "Data Structures",
+    "topics": [
+      {
+        "title": "Lists",
+        "type": "data-structures",
+        "icon": "[ ]",
+        "content": [
+          {
+            "type": "text",
+            "content": "Lists are ordered, changeable collections that can store multiple items of any type."
+          },
+          {
+            "type": "code",
+            "content": "# Creating lists\nfruits = ['apple', 'banana', 'orange']\nnumbers = [1, 2, 3, 4, 5]\nmixed = [1, 'Apple', 3.14, [4, 5], 'Banana']\n\n# Accessing items (indexing)\nprint(fruits[0])    # First item: 'apple'\nprint(fruits[-1])   # Last item: 'orange'\nprint(fruits[1:3])  # Slice: ['banana', 'orange']\n\n# Nested lists\nprint(mixed[3][1])  # Access '5' from nested list"
+          },
+          {
+            "type": "tip",
+            "title": "List Positioning",
+            "content": "• Forward indexing: 0, 1, 2, 3...\n• Backward indexing: -1, -2, -3...\n• Slicing: [start:stop] (stop not included)\n• Can store different data types\n• Supports nested lists (lists within lists)"
+          }
+        ]
+      },
+      {
+        "title": "List Operations",
+        "type": "list-operations",
+        "icon": "🔧",
+        "content": [
+          {
+            "type": "text",
+            "content": "Lists provide many built-in methods for manipulation and management."
+          },
+          {
+            "type": "code",
+            "content": "# List manipulations\nmylist = [1, 2, 3, 4, 5, 4, 3, 2, 1]\n\n# Adding items\nmylist.append(6)           # Add to end\nmylist.insert(2, 2.5)      # Insert at position 2\n\n# Removing items\nmylist.remove(1)           # Remove first occurrence of 1\npopped = mylist.pop(2)     # Remove and return item at index 2\n\n# Other operations\nmylist.sort()              # Sort in ascending order\nmylist.sort(reverse=True)  # Sort in descending order\nmylist.reverse()           # Reverse the list\nprint(mylist.count(3))     # Count occurrences of 3\nprint(mylist.index(4))     # Find index of first occurrence of 4"
+          },
+          {
+            "type": "rules-table",
+            "title": "Common List Methods",
+            "headers": ["Method", "Description", "Example"],
+            "rows": [
+              ["append(item)", "Add item to end", "list.append('new')"],
+              ["insert(index, item)", "Insert at position", "list.insert(1, 'mid')"],
+              ["remove(item)", "Remove first occurrence", "list.remove('old')"],
+              ["pop(index)", "Remove and return item", "item = list.pop(0)"],
+              ["sort()", "Sort in place", "list.sort()"],
+              ["count(item)", "Count occurrences", "list.count('x')"],
+              ["index(item)", "Find first index", "list.index('y')"]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Tuples",
+        "type": "tuples",
+        "icon": "( )",
+        "content": [
+          {
+            "type": "text",
+            "content": "Tuples are ordered, unchangeable collections. Perfect for data that shouldn't change."
+          },
+          {
+            "type": "code",
+            "content": "# Creating tuples\ncoordinates = (10, 20)\ncolors = ('red', 'green', 'blue')\nempty_tuple = ()\nsingle_item = (42,)  # Note the comma!\n\n# Accessing items (same as lists)\nprint(coordinates[0])  # First item: 10\nprint(colors[-1])      # Last item: 'blue'\n\n# Tuples are immutable\n# coordinates[0] = 15  # This would cause an ERROR!\n\n# Useful for multiple assignment\nx, y = coordinates\nprint(f\"X: {x}, Y: {y}\")"
+          },
+          {
+            "type": "tip",
+            "title": "When to Use Tuples",
+            "content": "• Store data that won't change (coordinates, RGB values)\n• Return multiple values from functions\n• Use as dictionary keys (unlike lists)\n• Faster than lists for read-only operations\n• Prevent accidental modification"
+          }
+        ]
+      },
+      {
+        "title": "Sets",
+        "type": "sets",
+        "icon": "{ }",
+        "content": [
+          {
+            "type": "text",
+            "content": "Sets are unordered collections of unique items. Great for removing duplicates and membership testing."
+          },
+          {
+            "type": "code",
+            "content": "# Creating sets\nunique_numbers = {1, 2, 3, 3, 4}  # Duplicates removed: {1, 2, 3, 4}\nanimals = {'cat', 'dog', 'bird'}\nempty_set = set()  # Note: {} creates a dictionary!\n\n# Adding and removing items\nanimals.add('fish')        # Add item\nanimals.remove('dog')      # Remove item (error if not found)\nanimals.discard('mouse')   # Remove item (no error if not found)\n\n# Set operations\nset1 = {1, 2, 3, 4}\nset2 = {3, 4, 5, 6}\nprint(set1 & set2)  # Intersection: {3, 4}\nprint(set1 | set2)  # Union: {1, 2, 3, 4, 5, 6}\nprint(set1 - set2)  # Difference: {1, 2}"
+          },
+          {
+            "type": "tip",
+            "title": "Set Advantages",
+            "content": "• Automatically removes duplicates\n• Very fast membership testing (in operator)\n• Mathematical set operations (union, intersection)\n• No indexing (unordered collection)\n• Use when order doesn't matter"
+          }
+        ]
+      },
+      {
+        "title": "Dictionaries",
+        "type": "dictionaries",
+        "icon": "{ : }",
+        "content": [
+          {
+            "type": "text",
+            "content": "Dictionaries store key-value pairs, like a real dictionary with words and definitions."
+          },
+          {
+            "type": "code",
+            "content": "# Creating dictionaries\nstudent = {\n    'name': 'Alice',\n    'age': 13,\n    'grade': '7th',\n    'subjects': ['Math', 'Science', 'English']\n}\n\n# Accessing values\nprint(student['name'])        # Get value by key\nprint(student.get('hobby'))   # Returns None if key doesn't exist\n\n# Adding and updating\nstudent['hobby'] = 'coding'   # Add new key-value pair\nstudent['age'] = 14          # Update existing value\n\n# Dictionary methods\nprint(student.keys())         # Get all keys\nprint(student.values())       # Get all values\nprint(student.items())        # Get key-value pairs\n\n# Remove items\ndel student['subjects']       # Remove key-value pair\nage = student.pop('age')      # Remove and return value"
+          },
+          {
+            "type": "tip",
+            "title": "Dictionary Features",
+            "content": "• Keys must be unique and immutable\n• Values can be any data type\n• Maintains insertion order (Python 3.7+)\n• Very fast lookups by key\n• Perfect for related data grouping"
+          }
+        ]
+      },
+      {
+        "title": "Data Structure Comparison",
+        "type": "comparison",
+        "icon": "📊",
+        "content": [
+          {
+            "type": "text",
+            "content": "Choose the right data structure for your needs based on these key differences."
+          },
+          {
+            "type": "rules-table",
+            "title": "Data Structure Comparison",
+            "headers": ["Feature", "List", "Tuple", "Set", "Dictionary"],
+            "rows": [
+              ["Ordered", "✅ Yes", "✅ Yes", "❌ No", "✅ Yes (3.7+)"],
+              ["Changeable", "✅ Yes", "❌ No", "✅ Yes", "✅ Yes"],
+              ["Duplicates", "✅ Yes", "✅ Yes", "❌ No", "❌ No keys"],
+              ["Indexing", "✅ Yes", "✅ Yes", "❌ No", "❌ No"],
+              ["Syntax", "[ ]", "( )", "{ }", "{ : }"],
+              ["Best For", "Ordered data", "Fixed data", "Unique items", "Key-value pairs"]
+            ]
+          },
+          {
+            "type": "example",
+            "title": "When to Use Each",
+            "content": "List: Shopping list, student grades, game scores\nTuple: Coordinates (x,y), RGB colors, database records\nSet: Unique visitors, tags, removing duplicates\nDictionary: Student info, phone book, configuration settings"
+          }
+        ]
+      },
+      {
+        "title": "Practical Examples",
+        "type": "examples",
+        "icon": "💡",
+        "content": [
+          {
+            "type": "text",
+            "content": "Real-world examples showing how to use each data structure effectively."
+          },
+          {
+            "type": "code",
+            "content": "# Shopping List Program\nshopping_list = []\n\n# Add 5 items\nfor i in range(5):\n    item = input(f\"Enter item {i+1}: \")\n    shopping_list.append(item)\n\n# Sort and display\nshopping_list.sort()\nprint(\"\\nYour shopping list:\")\nfor item in shopping_list:\n    print(f\"- {item}\")\n\n# Student Database\nstudents = {\n    'Alice': {'age': 13, 'grade': 'A', 'subjects': ['Math', 'Science']},\n    'Bob': {'age': 14, 'grade': 'B', 'subjects': ['English', 'History']}\n}\n\n# Find common subjects\nall_subjects = set()\nfor student in students.values():\n    all_subjects.update(student['subjects'])\nprint(f\"All subjects: {all_subjects}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Best Practices",
+            "content": "• Use lists for ordered, changeable data\n• Use tuples for coordinates and fixed data\n• Use sets to remove duplicates and fast lookups\n• Use dictionaries for related information\n• Combine structures for complex data organization"
+          }
+        ]
+      }
+    ]
+  }
+}
