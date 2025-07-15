@@ -1,4 +1,178 @@
-{
+]
+  },
+  "7": {
+    "title": "Project: Virtual Bunny Pet Game",
+    "topics": [
+      {
+        "title": "Project Introduction",
+        "type": "project-intro",
+        "icon": "🐰",
+        "content": [
+          {
+            "type": "text",
+            "content": "Create a virtual pet simulation where players care for a bunny by feeding, playing, and monitoring its health over time."
+          },
+          {
+            "type": "rules-table",
+            "title": "Game Features",
+            "headers": ["Feature", "Description", "Player Action"],
+            "rows": [
+              ["Pet Care", "Feed the bunny to reduce hunger", "Choose food types and amounts"],
+              ["Play Time", "Play games to increase happiness", "Select activities and duration"],
+              ["Health Monitor", "Track bunny's vital statistics", "Check status and trends"],
+              ["Persistence", "Save/load bunny's state", "Game continues between sessions"],
+              ["Time Effects", "Stats change over time", "Regular care required"]
+            ]
+          },
+          {
+            "type": "tip",
+            "title": "Learning Objectives",
+            "content": "• File-based data persistence\n• Menu-driven program structure\n• Function organization and modularity\n• Game state management\n• User interface design with ASCII art"
+          }
+        ]
+      },
+      {
+        "title": "Game Design Overview",
+        "type": "game-design",
+        "icon": "🎨",
+        "content": [
+          {
+            "type": "text",
+            "content": "Plan the game structure with clear separation of concerns and persistent data storage."
+          },
+          {
+            "type": "rules-table",
+            "title": "Core Game Components",
+            "headers": ["Component", "Purpose", "Implementation"],
+            "rows": [
+              ["Data Storage", "Save bunny's life data", "File I/O with JSON or text"],
+              ["Menu System", "User interaction interface", "While loop with menu options"],
+              ["Game Functions", "Feed, play, check status", "Separate functions for each action"],
+              ["State Management", "Track bunny statistics", "Dictionary or class attributes"],
+              ["Time Simulation", "Stats change over time", "Automatic decreases during play"]
+            ]
+          },
+          {
+            "type": "code",
+            "content": "# Game Flow Design\n# 1. Load bunny data from file (or create new bunny)\n# 2. Display main menu with options\n# 3. Execute player's choice (feed, play, status, quit)\n# 4. Update bunny's stats based on action and time\n# 5. Save data when quitting\n# 6. Repeat until player exits\n\n# Core game loop structure:\nwhile True:\n    display_menu()\n    choice = get_user_choice()\n    \n    if choice == '1':\n        feed_bunny()\n    elif choice == '2':\n        play_with_bunny()\n    elif choice == '3':\n        check_bunny_status()\n    elif choice == '4':\n        save_and_quit()\n        break\n    \n    update_bunny_over_time()\n    save_bunny_data()"
+          }
+        ]
+      },
+      {
+        "title": "Bunny Data Structure",
+        "type": "data-structure",
+        "icon": "📊",
+        "content": [
+          {
+            "type": "text",
+            "content": "Design the data structure to store all bunny statistics and game information."
+          },
+          {
+            "type": "code",
+            "content": "import json\nimport random\nfrom datetime import datetime\n\n# Bunny data structure\ndef create_new_bunny(name):\n    \"\"\"Create a new bunny with default stats\"\"\"\n    return {\n        'name': name,\n        'hunger': 50,        # 0-100 (0=starving, 100=full)\n        'happiness': 50,     # 0-100 (0=sad, 100=ecstatic)\n        'health': 100,       # 0-100 (0=sick, 100=perfect)\n        'energy': 75,        # 0-100 (0=exhausted, 100=energetic)\n        'age_days': 0,       # How many days old\n        'last_fed': datetime.now().isoformat(),\n        'last_played': datetime.now().isoformat(),\n        'created': datetime.now().isoformat(),\n        'total_meals': 0,\n        'total_play_sessions': 0,\n        'favorite_food': 'carrots',\n        'personality': random.choice(['playful', 'calm', 'energetic', 'shy'])\n    }\n\n# Example bunny\nbunny = create_new_bunny(\"Fluffy\")\nprint(f\"Created bunny: {bunny['name']}\")\nprint(f\"Personality: {bunny['personality']}\")\nprint(f\"Starting stats - Health: {bunny['health']}, Happiness: {bunny['happiness']}\")"
+          },
+          {
+            "type": "rules-table",
+            "title": "Bunny Statistics",
+            "headers": ["Stat", "Range", "Description", "Effects"],
+            "rows": [
+              ["Hunger", "0-100", "How full the bunny is", "Low hunger affects health and happiness"],
+              ["Happiness", "0-100", "Bunny's mood level", "Affects willingness to play and eat"],
+              ["Health", "0-100", "Overall physical condition", "Decreases if hunger/happiness too low"],
+              ["Energy", "0-100", "Activity level", "Needed for playing, restored by rest"],
+              ["Age", "0+", "Days since creation", "Older bunnies have different needs"]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "File Management System",
+        "type": "file-management",
+        "icon": "💾",
+        "content": [
+          {
+            "type": "text",
+            "content": "Implement persistent storage to save and load bunny data between game sessions."
+          },
+          {
+            "type": "code",
+            "content": "import json\nimport os\nfrom datetime import datetime, timedelta\n\nBUNNY_FILE = 'bunny_data.json'\n\ndef save_bunny_data(bunny):\n    \"\"\"Save bunny data to file\"\"\"\n    try:\n        with open(BUNNY_FILE, 'w') as f:\n            json.dump(bunny, f, indent=2)\n        print(f\"💾 Saved {bunny['name']}'s data successfully!\")\n    except Exception as e:\n        print(f\"❌ Error saving data: {e}\")\n\ndef load_bunny_data():\n    \"\"\"Load bunny data from file or create new bunny\"\"\"\n    if os.path.exists(BUNNY_FILE):\n        try:\n            with open(BUNNY_FILE, 'r') as f:\n                bunny = json.load(f)\n            print(f\"📂 Loaded {bunny['name']}'s data!\")\n            \n            # Calculate time passed since last session\n            last_save = datetime.fromisoformat(bunny.get('last_fed', bunny['created']))\n            time_passed = datetime.now() - last_save\n            hours_passed = time_passed.total_seconds() / 3600\n            \n            # Apply time-based changes\n            if hours_passed > 1:  # More than 1 hour passed\n                hunger_decrease = min(int(hours_passed * 10), 50)\n                happiness_decrease = min(int(hours_passed * 5), 30)\n                \n                bunny['hunger'] = max(0, bunny['hunger'] - hunger_decrease)\n                bunny['happiness'] = max(0, bunny['happiness'] - happiness_decrease)\n                \n                print(f\"⏰ Time passed: {hours_passed:.1f} hours\")\n                print(f\"📉 {bunny['name']} got hungry and lonely while you were away!\")\n            \n            return bunny\n            \n        except Exception as e:\n            print(f\"❌ Error loading data: {e}\")\n            print(\"Creating new bunny instead...\")\n    \n    # Create new bunny if file doesn't exist or failed to load\n    name = input(\"🐰 Enter your bunny's name: \").strip() or \"Fluffy\"\n    return create_new_bunny(name)\n\ndef backup_bunny_data(bunny):\n    \"\"\"Create a backup of bunny data\"\"\"\n    timestamp = datetime.now().strftime(\"%Y%m%d_%H%M%S\")\n    backup_file = f\"bunny_backup_{timestamp}.json\"\n    \n    try:\n        with open(backup_file, 'w') as f:\n            json.dump(bunny, f, indent=2)\n        print(f\"💾 Backup created: {backup_file}\")\n    except Exception as e:\n        print(f\"❌ Backup failed: {e}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Data Persistence Features",
+            "content": "• JSON format for human-readable data\n• Automatic time-based stat changes\n• Error handling for corrupted files\n• Backup system for data safety\n• New bunny creation if no save exists"
+          }
+        ]
+      },
+      {
+        "title": "Feeding System",
+        "type": "feeding-system",
+        "icon": "🥕",
+        "content": [
+          {
+            "type": "text",
+            "content": "Create an interactive feeding system with different food types and effects."
+          },
+          {
+            "type": "code",
+            "content": "def display_food_menu():\n    \"\"\"Show available food options\"\"\"\n    print(\"\\n🍽️  BUNNY FOOD MENU  🍽️\")\n    print(\"═\" * 30)\n    print(\"1. 🥕 Carrots (Hunger +20, Happiness +5)\")\n    print(\"2. 🥬 Lettuce (Hunger +15, Health +5)\")\n    print(\"3. 🍎 Apple (Hunger +10, Happiness +10)\")\n    print(\"4. 🌾 Hay (Hunger +25, Energy +5)\")\n    print(\"5. 🍓 Strawberry (Hunger +8, Happiness +15) [Special Treat]\")\n    print(\"6. 🥤 Water (Health +10, Energy +5)\")\n    print(\"7. 🔙 Back to main menu\")\n    print(\"═\" * 30)\n\ndef feed_bunny(bunny):\n    \"\"\"Handle bunny feeding with food selection\"\"\"\n    if bunny['hunger'] >= 95:\n        print(f\"😴 {bunny['name']} is too full to eat right now!\")\n        print(\"Maybe try playing instead?\")\n        return\n    \n    display_food_menu()\n    \n    food_effects = {\n        '1': {'name': 'Carrots', 'hunger': 20, 'happiness': 5, 'health': 0, 'energy': 0, 'emoji': '🥕'},\n        '2': {'name': 'Lettuce', 'hunger': 15, 'happiness': 0, 'health': 5, 'energy': 0, 'emoji': '🥬'},\n        '3': {'name': 'Apple', 'hunger': 10, 'happiness': 10, 'health': 0, 'energy': 0, 'emoji': '🍎'},\n        '4': {'name': 'Hay', 'hunger': 25, 'happiness': 0, 'health': 0, 'energy': 5, 'emoji': '🌾'},\n        '5': {'name': 'Strawberry', 'hunger': 8, 'happiness': 15, 'health': 0, 'energy': 0, 'emoji': '🍓'},\n        '6': {'name': 'Water', 'hunger': 0, 'happiness': 0, 'health': 10, 'energy': 5, 'emoji': '🥤'}\n    }\n    \n    choice = input(\"\\nWhat would you like to feed your bunny? (1-7): \").strip()\n    \n    if choice == '7':\n        return\n    \n    if choice in food_effects:\n        food = food_effects[choice]\n        \n        # Apply food effects\n        bunny['hunger'] = min(100, bunny['hunger'] + food['hunger'])\n        bunny['happiness'] = min(100, bunny['happiness'] + food['happiness'])\n        bunny['health'] = min(100, bunny['health'] + food['health'])\n        bunny['energy'] = min(100, bunny['energy'] + food['energy'])\n        bunny['total_meals'] += 1\n        bunny['last_fed'] = datetime.now().isoformat()\n        \n        # Special reactions based on personality\n        reactions = {\n            'playful': [\"bounces excitedly!\", \"does a little hop!\", \"wiggles nose happily!\"],\n            'calm': [\"eats peacefully\", \"chews thoughtfully\", \"nods appreciatively\"],\n            'energetic': [\"munches eagerly!\", \"devours it quickly!\", \"asks for more!\"],\n            'shy': [\"nibbles cautiously\", \"eats quietly\", \"seems grateful\"]\n        }\n        \n        reaction = random.choice(reactions[bunny['personality']])\n        \n        print(f\"\\n{food['emoji']} {bunny['name']} {reaction}\")\n        print(f\"Fed {bunny['name']} some {food['name']}!\")\n        \n        # Show stat changes\n        changes = []\n        if food['hunger'] > 0: changes.append(f\"Hunger +{food['hunger']}\")\n        if food['happiness'] > 0: changes.append(f\"Happiness +{food['happiness']}\")\n        if food['health'] > 0: changes.append(f\"Health +{food['health']}\")\n        if food['energy'] > 0: changes.append(f\"Energy +{food['energy']}\")\n        \n        if changes:\n            print(f\"📈 {', '.join(changes)}\")\n        \n        # Update favorite food based on what they eat most\n        if choice == '1': bunny['favorite_food'] = 'carrots'\n        elif choice == '5': bunny['favorite_food'] = 'strawberries'\n        \n    else:\n        print(\"❌ Invalid choice! Please select a number from 1-7.\")"
+          },
+          {
+            "type": "example",
+            "title": "Feeding Interaction Example",
+            "content": "Player selects carrots (🥕)\nBunny's hunger increases by 20 points\nHappiness increases by 5 points\nBunny shows personality-based reaction\nMeal counter increments\nLast fed time updates"
+          }
+        ]
+      },
+      {
+        "title": "Play System",
+        "type": "play-system",
+        "icon": "🎾",
+        "content": [
+          {
+            "type": "text",
+            "content": "Design interactive games and activities to increase bunny happiness and engagement."
+          },
+          {
+            "type": "code",
+            "content": "def display_play_menu():\n    \"\"\"Show available play activities\"\"\"\n    print(\"\\n🎮  PLAY ACTIVITIES  🎮\")\n    print(\"═\" * 30)\n    print(\"1. 🎾 Fetch Game (Happiness +15, Energy -10)\")\n    print(\"2. 🏃 Run Around (Happiness +10, Energy -5, Health +5)\")\n    print(\"3. 🧩 Puzzle Toys (Happiness +20, Energy -15)\")\n    print(\"4. 🎵 Listen to Music (Happiness +12, Energy +5)\")\n    print(\"5. 🪑 Hide and Seek (Happiness +18, Energy -12)\")\n    print(\"6. 😴 Rest Time (Energy +20, Health +5)\")\n    print(\"7. 🔙 Back to main menu\")\n    print(\"═\" * 30)\n\ndef play_with_bunny(bunny):\n    \"\"\"Handle play activities with the bunny\"\"\"\n    if bunny['energy'] <= 10:\n        print(f\"😪 {bunny['name']} is too tired to play right now!\")\n        print(\"Maybe let them rest or give them some water?\")\n        return\n    \n    if bunny['happiness'] >= 95:\n        print(f\"😊 {bunny['name']} is already very happy!\")\n        print(\"They're content just being with you.\")\n        return\n    \n    display_play_menu()\n    \n    activities = {\n        '1': {'name': 'Fetch Game', 'happiness': 15, 'energy': -10, 'health': 0, 'emoji': '🎾'},\n        '2': {'name': 'Run Around', 'happiness': 10, 'energy': -5, 'health': 5, 'emoji': '🏃'},\n        '3': {'name': 'Puzzle Toys', 'happiness': 20, 'energy': -15, 'health': 0, 'emoji': '🧩'},\n        '4': {'name': 'Listen to Music', 'happiness': 12, 'energy': 5, 'health': 0, 'emoji': '🎵'},\n        '5': {'name': 'Hide and Seek', 'happiness': 18, 'energy': -12, 'health': 0, 'emoji': '🪑'},\n        '6': {'name': 'Rest Time', 'happiness': 5, 'energy': 20, 'health': 5, 'emoji': '😴'}\n    }\n    \n    choice = input(\"\\nWhat activity would you like to do? (1-7): \").strip()\n    \n    if choice == '7':\n        return\n    \n    if choice in activities:\n        activity = activities[choice]\n        \n        # Check if bunny has enough energy for the activity\n        if activity['energy'] < 0 and bunny['energy'] + activity['energy'] < 0:\n            print(f\"😴 {bunny['name']} doesn't have enough energy for {activity['name']}!\")\n            print(\"Try a less energetic activity or let them rest.\")\n            return\n        \n        # Apply activity effects\n        bunny['happiness'] = min(100, bunny['happiness'] + activity['happiness'])\n        bunny['energy'] = max(0, min(100, bunny['energy'] + activity['energy']))\n        bunny['health'] = min(100, bunny['health'] + activity['health'])\n        bunny['total_play_sessions'] += 1\n        bunny['last_played'] = datetime.now().isoformat()\n        \n        # Activity-specific interactions\n        if choice == '1':  # Fetch\n            success = random.choice([True, True, True, False])  # 75% success rate\n            if success:\n                print(f\"\\n🎾 You throw the ball and {bunny['name']} brings it back perfectly!\")\n            else:\n                print(f\"\\n🎾 {bunny['name']} chases the ball but gets distracted by a butterfly!\")\n                bunny['happiness'] += 5  # Extra happiness for the distraction\n        \n        elif choice == '3':  # Puzzle\n            solve_time = random.randint(30, 180)  # 30 seconds to 3 minutes\n            print(f\"\\n🧩 {bunny['name']} works on the puzzle for {solve_time} seconds...\")\n            if solve_time < 60:\n                print(\"🎉 Solved it quickly! Your bunny is so smart!\")\n                bunny['happiness'] += 5\n        \n        elif choice == '5':  # Hide and Seek\n            hiding_spots = ['under the bed', 'behind the curtains', 'in the toy box', 'under a blanket']\n            spot = random.choice(hiding_spots)\n            print(f\"\\n🪑 {bunny['name']} hides {spot}!\")\n            print(\"You pretend to look around... 'Where could they be?'\")\n            print(f\"🎉 Found them! {bunny['name']} looks so proud!\")\n        \n        print(f\"\\n{activity['emoji']} Played {activity['name']} with {bunny['name']}!\")\n        \n        # Show stat changes\n        changes = []\n        if activity['happiness'] > 0: changes.append(f\"Happiness +{activity['happiness']}\")\n        if activity['energy'] != 0: \n            if activity['energy'] > 0:\n                changes.append(f\"Energy +{activity['energy']}\")\n            else:\n                changes.append(f\"Energy {activity['energy']}\")\n        if activity['health'] > 0: changes.append(f\"Health +{activity['health']}\")\n        \n        if changes:\n            print(f\"📈 {', '.join(changes)}\")\n        \n        # Random bonus events\n        if random.random() < 0.2:  # 20% chance\n            bonus_events = [\n                f\"{bunny['name']} finds a hidden treat! (+5 Happiness)\",\n                f\"{bunny['name']} learns a new trick! (+3 Happiness)\",\n                f\"{bunny['name']} feels extra energetic! (+5 Energy)\"\n            ]\n            event = random.choice(bonus_events)\n            print(f\"🎁 Bonus: {event}\")\n            if \"Happiness\" in event:\n                bunny['happiness'] = min(100, bunny['happiness'] + 5)\n            elif \"Energy\" in event:\n                bunny['energy'] = min(100, bunny['energy'] + 5)\n        \n    else:\n        print(\"❌ Invalid choice! Please select a number from 1-7.\")"
+          },
+          {
+            "type": "tip",
+            "title": "Play System Features",
+            "content": "• Different activities affect stats differently\n• Energy requirements prevent overexertion\n• Random events add surprises\n• Activity-specific narrative interactions\n• Bonus events for extra engagement"
+          }
+        ]
+      },
+      {
+        "title": "Status Display System",
+        "type": "status-system",
+        "icon": "📊",
+        "content": [
+          {
+            "type": "text",
+            "content": "Create a comprehensive status display with visual indicators and detailed bunny information."
+          },
+          {
+            "type": "code",
+            "content": "def get_status_bar(value, max_value=100, length=20):\n    \"\"\"Create a visual status bar\"\"\"\n    filled = int((value / max_value) * length)\n    bar = '█' * filled + '░' * (length - filled)\n    return f\"[{bar}] {value}/{max_value}\"\n\ndef get_status_emoji(value):\n    \"\"\"Get emoji based on status value\"\"\"\n    if value >= 80: return \"😊\"  # Great\n    elif value >= 60: return \"🙂\"  # Good\n    elif value >= 40: return \"😐\"  # Okay\n    elif value >= 20: return \"😟\"  # Poor\n    else: return \"😵\"  # Critical\n\ndef get_bunny_mood(bunny):\n    \"\"\"Determine bunny's overall mood\"\"\"\n    avg_stat = (bunny['hunger'] + bunny['happiness'] + bunny['health'] + bunny['energy']) / 4\n    \n    if avg_stat >= 80:\n        return \"Excellent! 🌟\", \"Your bunny is thriving and full of life!\"\n    elif avg_stat >= 60:\n        return \"Good 😊\", \"Your bunny is happy and healthy.\"\n    elif avg_stat >= 40:\n        return \"Okay 😐\", \"Your bunny needs some attention.\"\n    elif avg_stat >= 20:\n        return \"Poor 😟\", \"Your bunny is struggling and needs care.\"\n    else:\n        return \"Critical 😵\", \"Your bunny needs immediate attention!\"\n\ndef check_bunny_status(bunny):\n    \"\"\"Display comprehensive bunny status\"\"\"\n    print(\"\\n\" + \"═\" * 50)\n    print(f\"📊  {bunny['name'].upper()}'S STATUS REPORT  📊\")\n    print(\"═\" * 50)\n    \n    # Basic info\n    age_days = bunny['age_days']\n    age_text = f\"{age_days} day{'s' if age_days != 1 else ''} old\"\n    print(f\"🐰 Name: {bunny['name']} ({age_text})\")\n    print(f\"🎭 Personality: {bunny['personality'].title()}\")\n    print(f\"❤️  Favorite Food: {bunny['favorite_food'].title()}\")\n    \n    print(\"\\n📈 VITAL STATISTICS:\")\n    print(\"-\" * 30)\n    \n    # Status bars with emojis\n    hunger_emoji = get_status_emoji(bunny['hunger'])\n    happiness_emoji = get_status_emoji(bunny['happiness'])\n    health_emoji = get_status_emoji(bunny['health'])\n    energy_emoji = get_status_emoji(bunny['energy'])\n    \n    print(f\"🍽️  Hunger:    {hunger_emoji} {get_status_bar(bunny['hunger'])}\")\n    print(f\"😊 Happiness: {happiness_emoji} {get_status_bar(bunny['happiness'])}\")\n    print(f\"❤️  Health:    {health_emoji} {get_status_bar(bunny['health'])}\")\n    print(f\"⚡ Energy:    {energy_emoji} {get_status_bar(bunny['energy'])}\")\n    \n    # Overall mood\n    mood, description = get_bunny_mood(bunny)\n    print(f\"\\n🎭 Overall Mood: {mood}\")\n    print(f\"   {description}\")\n    \n    # Care statistics\n    print(\"\\n📋 CARE HISTORY:\")\n    print(\"-\" * 20)\n    print(f\"🍽️  Total Meals: {bunny['total_meals']}\")\n    print(f\"🎮 Play Sessions: {bunny['total_play_sessions']}\")\n    \n    # Last activity times\n    try:\n        last_fed = datetime.fromisoformat(bunny['last_fed'])\n        last_played = datetime.fromisoformat(bunny['last_played'])\n        \n        fed_ago = datetime.now() - last_fed\n        played_ago = datetime.now() - last_played\n        \n        print(f\"🕐 Last Fed: {format_time_ago(fed_ago)}\")\n        print(f\"🕐 Last Played: {format_time_ago(played_ago)}\")\n    except:\n        print(\"🕐 Last Fed: Just now\")\n        print(\"🕐 Last Played: Just now\")\n    \n    # Health warnings\n    warnings = []\n    if bunny['hunger'] < 20:\n        warnings.append(\"🚨 Your bunny is very hungry!\")\n    if bunny['happiness'] < 20:\n        warnings.append(\"🚨 Your bunny is very sad!\")\n    if bunny['health'] < 30:\n        warnings.append(\"🚨 Your bunny's health is poor!\")\n    if bunny['energy'] < 10:\n        warnings.append(\"🚨 Your bunny is exhausted!\")\n    \n    if warnings:\n        print(\"\\n⚠️  ATTENTION NEEDED:\")\n        for warning in warnings:\n            print(f\"   {warning}\")\n    \n    # Care recommendations\n    recommendations = get_care_recommendations(bunny)\n    if recommendations:\n        print(\"\\n💡 CARE RECOMMENDATIONS:\")\n        for rec in recommendations:\n            print(f\"   • {rec}\")\n    \n    print(\"═\" * 50)\n    input(\"\\nPress Enter to continue...\")\n\ndef format_time_ago(timedelta_obj):\n    \"\"\"Format time difference in human-readable form\"\"\"\n    seconds = int(timedelta_obj.total_seconds())\n    \n    if seconds < 60:\n        return \"Just now\"\n    elif seconds < 3600:\n        minutes = seconds // 60\n        return f\"{minutes} minute{'s' if minutes != 1 else ''} ago\"\n    elif seconds < 86400:\n        hours = seconds // 3600\n        return f\"{hours} hour{'s' if hours != 1 else ''} ago\"\n    else:\n        days = seconds // 86400\n        return f\"{days} day{'s' if days != 1 else ''} ago\"\n\ndef get_care_recommendations(bunny):\n    \"\"\"Generate care recommendations based on bunny's status\"\"\"\n    recommendations = []\n    \n    if bunny['hunger'] < 50:\n        recommendations.append(\"Feed your bunny some nutritious food\")\n    if bunny['happiness'] < 50:\n        recommendations.append(\"Play with your bunny to boost their mood\")\n    if bunny['health'] < 70:\n        recommendations.append(\"Ensure proper nutrition and rest for better health\")\n    if bunny['energy'] < 30:\n        recommendations.append(\"Let your bunny rest or give them water\")\n    \n    # Positive recommendations\n    if all(stat >= 70 for stat in [bunny['hunger'], bunny['happiness'], bunny['health'], bunny['energy']]):\n        recommendations.append(\"Great job! Your bunny is very well cared for!\")\n        recommendations.append(\"Try introducing new activities or foods\")\n    \n    return recommendations"
+          },
+          {
+            "type": "example",
+            "title": "Status Display Features",
+            "content": "Visual progress bars for all stats\nEmoji indicators for quick status assessment\nOverall mood calculation and description\nCare history and statistics tracking\nAutomated recommendations for improvement\nWarning system for critical needs"
+          }
+        ]
+      },
+      {
+        "title": "Complete Bunny Pet Game",
+        "type": "complete-game",
+        "icon": "🎮",
+        "content": [
+          {
+            "type": "text",
+            "content": "The complete Virtual Bunny Pet Game with all systems integrated and proper main program structure{
   "1": {
     "title": "Python Fundamentals",
     "topics": [
@@ -494,6 +668,627 @@
             "type": "tip",
             "title": "Best Practices",
             "content": "• Use lists for ordered, changeable data\n• Use tuples for coordinates and fixed data\n• Use sets to remove duplicates and fast lookups\n• Use dictionaries for related information\n• Combine structures for complex data organization"
+          }
+        ]
+      }
+    ]
+  },
+  "5": {
+    "title": "File Handling & Functions",
+    "topics": [
+      {
+        "title": "Data Storage Concepts",
+        "type": "storage",
+        "icon": "💾",
+        "content": [
+          {
+            "type": "text",
+            "content": "Understanding the difference between short-term (memory) and long-term (file) data storage."
+          },
+          {
+            "type": "rules-table",
+            "title": "Storage Comparison",
+            "headers": ["Storage Type", "Location", "Duration", "Examples"],
+            "rows": [
+              ["Short-term", "RAM Memory", "Until program ends", "Variables, lists, dictionaries"],
+              ["Long-term", "Hard Drive Files", "Permanent", "Text files, documents, databases"]
+            ]
+          },
+          {
+            "type": "tip",
+            "title": "Why File Storage?",
+            "content": "• Variables disappear when program ends\n• Files persist after computer shutdown\n• Share data between different programs\n• Create backups and save user progress"
+          }
+        ]
+      },
+      {
+        "title": "File Operations",
+        "type": "file-operations",
+        "icon": "📁",
+        "content": [
+          {
+            "type": "text",
+            "content": "Python provides different modes for working with files, each with specific behaviors."
+          },
+          {
+            "type": "rules-table",
+            "title": "File Mode Operations",
+            "headers": ["Mode", "Operation", "File Exists", "File Doesn't Exist"],
+            "rows": [
+              ["'r'", "Read file content", "Read content", "Error: FileNotFoundError"],
+              ["'w'", "Write content", "Overwrite file", "Create new file"],
+              ["'a'", "Append content", "Add to end", "Create new file"],
+              ["'x'", "Create content", "Error: FileExistsError", "Create new file"]
+            ]
+          },
+          {
+            "type": "tip",
+            "title": "Choosing File Modes",
+            "content": "• Use 'r' to read existing files\n• Use 'w' to create new files or replace content\n• Use 'a' to add to existing files\n• Use 'x' to create files only if they don't exist"
+          }
+        ]
+      },
+      {
+        "title": "File Writing",
+        "type": "file-writing",
+        "icon": "✍️",
+        "content": [
+          {
+            "type": "text",
+            "content": "Write data to files using the 'with' statement for automatic file management."
+          },
+          {
+            "type": "code",
+            "content": "# Basic file writing\nwith open('filedemo.txt', 'w') as f:\n    f.write(\"I'm learning Python programming!\\n\")\n    f.write(\"This is lesson 5!\\n\")\nprint('File filedemo.txt has been written')\n\n# Writing a shopping list\nshopping_list = ['milk', 'bread', 'eggs', 'apples']\nwith open('shopping.txt', 'w') as f:\n    for item in shopping_list:\n        f.write(f\"- {item}\\n\")\nprint('Shopping list saved!')"
+          },
+          {
+            "type": "tip",
+            "title": "File Writing Best Practices",
+            "content": "• Always use 'with' statement for automatic file closing\n• Add \\n for new lines\n• The file closes automatically when 'with' block ends\n• Python handles errors and ensures file closure"
+          }
+        ]
+      },
+      {
+        "title": "File Appending",
+        "type": "file-appending",
+        "icon": "➕",
+        "content": [
+          {
+            "type": "text",
+            "content": "Add new content to existing files without losing the original content."
+          },
+          {
+            "type": "code",
+            "content": "# Append to existing file\nwith open('filedemo.txt', 'a') as f:\n    f.write(\"Appended line\\n\")\n    f.write(\"Another new line\\n\")\nprint(\"New lines added to filedemo.txt\")\n\n# Append user input to log file\nuser_action = input(\"What did you do today? \")\nwith open('daily_log.txt', 'a') as f:\n    f.write(f\"Today: {user_action}\\n\")\nprint(\"Action logged!\")"
+          },
+          {
+            "type": "example",
+            "title": "When to Use Append",
+            "content": "Log files - adding new entries\nChat messages - adding conversations\nScores - adding new game results\nDiary entries - adding daily notes"
+          }
+        ]
+      },
+      {
+        "title": "File Reading",
+        "type": "file-reading",
+        "icon": "📖",
+        "content": [
+          {
+            "type": "text",
+            "content": "Read content from files line by line or all at once."
+          },
+          {
+            "type": "code",
+            "content": "# Read file line by line\nwith open('filedemo.txt', 'r') as f:\n    for line in f:\n        print(line, end='')  # end='' removes extra newline\n\n# Read entire file at once\nwith open('shopping.txt', 'r') as f:\n    content = f.read()\n    print(content)\n\n# Read all lines into a list\nwith open('shopping.txt', 'r') as f:\n    lines = f.readlines()\n    for i, line in enumerate(lines, 1):\n        print(f\"{i}. {line.strip()}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Reading Methods",
+            "content": "• f.read() - reads entire file as string\n• f.readline() - reads one line at a time\n• f.readlines() - reads all lines into a list\n• Loop with 'for line in f:' for large files"
+          }
+        ]
+      },
+      {
+        "title": "Variable Scope",
+        "type": "scope",
+        "icon": "🔍",
+        "content": [
+          {
+            "type": "text",
+            "content": "Variables defined inside 'with' blocks are only accessible within that block."
+          },
+          {
+            "type": "code",
+            "content": "# This works - variable f is inside the with block\nwith open('filedemo.txt', 'w') as f:\n    f.write(\"I'm learning Python programming!\\n\")\n    f.write(\"This is lesson 5!\\n\")\n\n# This would cause an error - f is outside the with block\n# f.write(\"This line will error\")  # NameError!\n\n# Correct approach for multiple operations\nfilename = 'data.txt'\ndata_to_write = [\"Line 1\", \"Line 2\", \"Line 3\"]\n\nwith open(filename, 'w') as f:\n    for line in data_to_write:\n        f.write(line + \"\\n\")\nprint(f\"Data written to {filename}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Scope Rules",
+            "content": "• Variables inside 'with' blocks have limited scope\n• File object 'f' only exists within the indented block\n• Use variables defined outside for broader access\n• Python automatically closes files when scope ends"
+          }
+        ]
+      },
+      {
+        "title": "Enhanced Shopping List Lab",
+        "type": "lab",
+        "icon": "🛒",
+        "content": [
+          {
+            "type": "text",
+            "content": "Create an enhanced shopping list program that saves data to a file."
+          },
+          {
+            "type": "code",
+            "content": "# Enhanced Shopping List with File Saving\nshopping_list = []\n\nprint(\"Enhanced Shopping List Program\")\nprint(\"Enter items (press Enter with no input to finish)\")\n\nwhile True:\n    item = input(\"Enter shopping item: \").strip()\n    \n    if item == \"\":  # User pressed Enter with no input\n        break\n    \n    shopping_list.append(item)\n    print(f\"Added '{item}' to your list\")\n\nif shopping_list:\n    # Sort the list\n    shopping_list.sort()\n    \n    # Save to file\n    filename = 'shopping_list.txt'\n    with open(filename, 'w') as f:\n        f.write(\"My Shopping List\\n\")\n        f.write(\"=================\\n\")\n        for i, item in enumerate(shopping_list, 1):\n            f.write(f\"{i}. {item}\\n\")\n    \n    print(f\"\\nShopping list saved to '{filename}'\")\n    print(\"Your sorted list:\")\n    for i, item in enumerate(shopping_list, 1):\n        print(f\"{i}. {item}\")\nelse:\n    print(\"No items added to the shopping list.\")"
+          }
+        ]
+      },
+      {
+        "title": "Functions Basics",
+        "type": "functions",
+        "icon": "f(x)",
+        "content": [
+          {
+            "type": "text",
+            "content": "Functions are reusable code blocks that perform specific tasks. They have four key elements."
+          },
+          {
+            "type": "code",
+            "content": "# Function with all 4 elements\ndef calculate_area(length, width):  # 1. Define with 'def'\n    \"\"\"Calculate rectangle area\"\"\"    # 2. Input parameters\n    area = length * width           # 3. Perform task\n    return area                     # 4. Return result\n\n# Using the function\nresult1 = calculate_area(5, 3)\nresult2 = calculate_area(10, 7)\nprint(f\"Area 1: {result1}\")\nprint(f\"Area 2: {result2}\")\n\n# Simple function without parameters\ndef greet():\n    return \"Hello, Python learner!\"\n\nmessage = greet()\nprint(message)"
+          },
+          {
+            "type": "rules-table",
+            "title": "Function Elements",
+            "headers": ["Element", "Purpose", "Required?"],
+            "rows": [
+              ["def keyword", "Define the function", "✅ Yes"],
+              ["Parameters", "Input values", "❌ Optional"],
+              ["Function body", "Task to perform", "✅ Yes"],
+              ["return statement", "Output value", "❌ Optional"]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Function Design Principles",
+        "type": "function-design",
+        "icon": "🏗️",
+        "content": [
+          {
+            "type": "text",
+            "content": "Good functions follow the principle of doing one thing well. Each function should have a clear, specific purpose."
+          },
+          {
+            "type": "code",
+            "content": "# ✅ GOOD: Each function has one clear purpose\ndef calculate_area(length, width):\n    \"\"\"Calculate rectangle area\"\"\"\n    return length * width\n\ndef display_result(area):\n    \"\"\"Display the area result\"\"\"\n    print(f\"The area is: {area} square units\")\n\ndef save_to_file(data, filename):\n    \"\"\"Save data to a text file\"\"\"\n    with open(filename, 'w') as f:\n        f.write(str(data))\n\n# Using the functions together\narea = calculate_area(10, 5)\ndisplay_result(area)\nsave_to_file(area, 'area_result.txt')"
+          },
+          {
+            "type": "tip",
+            "title": "Function Design Rules",
+            "content": "• One function = One specific task\n• Use descriptive function names\n• Keep functions short and focused\n• Combine simple functions for complex tasks\n• Functions should be reusable"
+          }
+        ]
+      },
+      {
+        "title": "Function Parameters",
+        "type": "function-parameters",
+        "icon": "📥",
+        "content": [
+          {
+            "type": "text",
+            "content": "Functions can accept different types of parameters to make them flexible and reusable."
+          },
+          {
+            "type": "code",
+            "content": "# Required parameters\ndef greet(name):\n    return f\"Hello, {name}!\"\n\n# Default parameters\ndef greet_with_title(name, title=\"Mr.\"):\n    return f\"Hello, {title} {name}!\"\n\n# Multiple parameters\ndef calculate_rectangle_area(length, width):\n    return length * width\n\n# Variable number of parameters (*args)\ndef sum_numbers(*numbers):\n    return sum(numbers)\n\n# Examples of usage\nprint(greet(\"Alice\"))                    # Hello, Alice!\nprint(greet_with_title(\"Bob\"))           # Hello, Mr. Bob!\nprint(greet_with_title(\"Carol\", \"Dr.\"))  # Hello, Dr. Carol!\nprint(calculate_rectangle_area(5, 3))    # 15\nprint(sum_numbers(1, 2, 3, 4, 5))       # 15"
+          },
+          {
+            "type": "tip",
+            "title": "Parameter Types",
+            "content": "• Required: Must be provided when calling function\n• Default: Have fallback values if not provided\n• *args: Accept any number of arguments\n• Make functions flexible for different use cases"
+          }
+        ]
+      },
+      {
+        "title": "Return Values",
+        "type": "return-values",
+        "icon": "📤",
+        "content": [
+          {
+            "type": "text",
+            "content": "Functions can return single values, multiple values, or different data types based on the task."
+          },
+          {
+            "type": "code",
+            "content": "# Single return value\ndef get_full_name(first_name, last_name):\n    return f\"{first_name} {last_name}\"\n\nresult = get_full_name(\"John\", \"Doe\")\nprint(result)  # John Doe\n\n# Multiple return values\ndef get_name_parts(full_name):\n    parts = full_name.split()\n    first_name = parts[0]\n    last_name = parts[-1]\n    return first_name, last_name\n\nfirst, last = get_name_parts(\"Alice Johnson\")\nprint(f\"First: {first}, Last: {last}\")\n\n# Different data types returned\ndef analyze_numbers(numbers):\n    if not numbers:\n        return None, \"No numbers provided\"\n    \n    total = sum(numbers)\n    average = total / len(numbers)\n    return total, average, len(numbers)\n\ntotal, avg, count = analyze_numbers([85, 92, 78, 96])\nprint(f\"Total: {total}, Average: {avg}, Count: {count}\")"
+          },
+          {
+            "type": "tip",
+            "title": "Return Guidelines",
+            "content": "• Functions without return give back None\n• Use multiple returns for related data\n• Return early for error conditions\n• Keep return types consistent when possible"
+          }
+        ]
+      },
+      {
+        "title": "Main Function Pattern",
+        "type": "main-function",
+        "icon": "🎯",
+        "content": [
+          {
+            "type": "text",
+            "content": "The main function pattern organizes code and allows scripts to be both run directly and imported as modules."
+          },
+          {
+            "type": "code",
+            "content": "def add_numbers(a, b):\n    \"\"\"Add two numbers\"\"\"\n    return a + b\n\ndef subtract_numbers(a, b):\n    \"\"\"Subtract two numbers\"\"\"\n    return a - b\n\ndef main():\n    \"\"\"Main program logic\"\"\"\n    print(\"Calculator Program\")\n    \n    num1 = float(input(\"Enter first number: \"))\n    num2 = float(input(\"Enter second number: \"))\n    \n    sum_result = add_numbers(num1, num2)\n    diff_result = subtract_numbers(num1, num2)\n    \n    print(f\"Sum: {sum_result}\")\n    print(f\"Difference: {diff_result}\")\n    \n    # Save results to file\n    with open('calculator_results.txt', 'w') as f:\n        f.write(f\"Calculation Results\\n\")\n        f.write(f\"Numbers: {num1}, {num2}\\n\")\n        f.write(f\"Sum: {sum_result}\\n\")\n        f.write(f\"Difference: {diff_result}\\n\")\n\n# This runs only when script is executed directly\nif __name__ == \"__main__\":\n    main()"
+          },
+          {
+            "type": "tip",
+            "title": "Main Function Benefits",
+            "content": "• Organizes code structure clearly\n• Allows importing without running main code\n• Makes testing individual functions easier\n• Professional Python programming practice"
+          }
+        ]
+      },
+      {
+        "title": "Student Grade System Exercise",
+        "type": "exercise",
+        "icon": "🎓",
+        "content": [
+          {
+            "type": "text",
+            "content": "Practice functions by creating a complete student grade management system."
+          },
+          {
+            "type": "code",
+            "content": "def get_student_info():\n    \"\"\"Get student name and scores from user\"\"\"\n    name = input(\"Enter student name: \")\n    scores = []\n    \n    for i in range(3):\n        score = float(input(f\"Enter score {i+1}: \"))\n        scores.append(score)\n    \n    return name, scores\n\ndef calculate_average(scores):\n    \"\"\"Calculate average of scores\"\"\"\n    return sum(scores) / len(scores)\n\ndef determine_grade(average):\n    \"\"\"Determine letter grade based on average\"\"\"\n    if average >= 90:\n        return 'A'\n    elif average >= 80:\n        return 'B'\n    elif average >= 70:\n        return 'C'\n    elif average >= 60:\n        return 'D'\n    else:\n        return 'F'\n\ndef save_student_record(name, average, grade, filename):\n    \"\"\"Save student record to file\"\"\"\n    with open(filename, 'a') as f:\n        f.write(f\"Student: {name}\\n\")\n        f.write(f\"Average: {average:.1f}\\n\")\n        f.write(f\"Grade: {grade}\\n\")\n        f.write(\"-\" * 20 + \"\\n\")\n\ndef main():\n    \"\"\"Main program to orchestrate the grade system\"\"\"\n    name, scores = get_student_info()\n    average = calculate_average(scores)\n    grade = determine_grade(average)\n    \n    print(f\"{name}'s average: {average:.1f}\")\n    print(f\"Grade: {grade}\")\n    \n    save_student_record(name, average, grade, 'grades.txt')\n    print(\"Student record saved to grades.txt\")\n\nif __name__ == \"__main__\":\n    main()"
+          },
+          {
+            "type": "example",
+            "title": "Expected Output",
+            "content": "Enter student name: Alice\nEnter score 1: 85\nEnter score 2: 92\nEnter score 3: 78\nAlice's average: 85.0\nGrade: B\nStudent record saved to grades.txt"
+          }
+        ]
+      }
+    ]
+  },
+  "6": {
+    "title": "Project: Hangman Game",
+    "topics": [
+      {
+        "title": "Project Overview",
+        "type": "project-overview",
+        "icon": "🎯",
+        "content": [
+          {
+            "type": "text",
+            "content": "Create a complete Hangman game that combines all the Python concepts we've learned: lists, loops, conditionals, functions, and user input."
+          },
+          {
+            "type": "rules-table",
+            "title": "Game Requirements",
+            "headers": ["Feature", "Description", "Python Concepts Used"],
+            "rows": [
+              ["Word Selection", "Computer picks random word", "Lists, random.choice()"],
+              ["Player Guessing", "Guess one letter at a time", "Input validation, loops"],
+              ["Progress Display", "Show guessed letters as _", "String manipulation, loops"],
+              ["Attempt Tracking", "Limited wrong guesses", "Variables, conditionals"],
+              ["Win/Lose Logic", "Check game completion", "Boolean logic, conditionals"]
+            ]
+          },
+          {
+            "type": "tip",
+            "title": "Skills Applied",
+            "content": "• Random word selection from lists\n• While loops for game flow\n• String manipulation for display\n• Boolean logic for game states\n• Input validation and error handling"
+          }
+        ]
+      },
+      {
+        "title": "Game Setup",
+        "type": "game-setup",
+        "icon": "⚙️",
+        "content": [
+          {
+            "type": "text",
+            "content": "Set up the basic structure and variables needed for the Hangman game."
+          },
+          {
+            "type": "code",
+            "content": "import random\n\n# 1. Define word list\nword_list = [\n    'python', 'programming', 'computer', 'keyboard', 'monitor',\n    'mouse', 'software', 'hardware', 'internet', 'website',\n    'database', 'algorithm', 'function', 'variable', 'loop'\n]\n\n# 2. Pick random word\nanswer = random.choice(word_list).lower()\nprint(f\"Hint: The word has {len(answer)} letters\")\n\n# 3. Setup game variables\nguesses = []           # List to store player's guesses\nattempts = 6          # Maximum wrong attempts (traditional hangman)\nguess_matches = False # Flag to track if word is complete\nwrong_guesses = 0     # Counter for wrong attempts\n\nprint(\"Welcome to Hangman!\")\nprint(\"Guess the word one letter at a time.\")\nprint(f\"You have {attempts} wrong guesses allowed.\\n\")"
+          },
+          {
+            "type": "rules-table",
+            "title": "Variable Setup",
+            "headers": ["Variable", "Data Type", "Purpose", "Initial Value"],
+            "rows": [
+              ["answer", "String", "The word to guess", "Random word from list"],
+              ["guesses", "List", "Store player's guesses", "Empty list []"],
+              ["attempts", "Integer", "Max wrong guesses", "6"],
+              ["guess_matches", "Boolean", "Game completion flag", "False"],
+              ["wrong_guesses", "Integer", "Count wrong attempts", "0"]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Main Game Loop",
+        "type": "game-loop",
+        "icon": "🔄",
+        "content": [
+          {
+            "type": "text",
+            "content": "The heart of the game: a while loop that continues until the player wins or runs out of attempts."
+          },
+          {
+            "type": "code",
+            "content": "# Main game loop\nwhile wrong_guesses < attempts and not guess_matches:\n    # Display current progress\n    display = \"\"\n    for letter in answer:\n        if letter in guesses:\n            display += letter + \" \"\n        else:\n            display += \"_ \"\n    \n    print(f\"\\nWord: {display}\")\n    print(f\"Guessed letters: {', '.join(guesses)}\")\n    print(f\"Wrong guesses remaining: {attempts - wrong_guesses}\")\n    \n    # Get player input\n    while True:\n        guess = input(\"\\nGuess a letter: \").lower().strip()\n        \n        # Validate input\n        if len(guess) != 1:\n            print(\"Please enter exactly one letter.\")\n            continue\n        elif not guess.isalpha():\n            print(\"Please enter a letter (a-z).\")\n            continue\n        elif guess in guesses:\n            print(f\"You already guessed '{guess}'. Try another letter.\")\n            continue\n        else:\n            break\n    \n    # Add guess to list\n    guesses.append(guess)\n    \n    # Check if guess is correct\n    if guess in answer:\n        print(f\"Good guess! '{guess}' is in the word.\")\n        \n        # Check if word is complete\n        if all(letter in guesses for letter in answer):\n            guess_matches = True\n    else:\n        wrong_guesses += 1\n        print(f\"Sorry, '{guess}' is not in the word.\")"
+          },
+          {
+            "type": "tip",
+            "title": "Loop Logic",
+            "content": "• Continue while: wrong_guesses < attempts AND not guess_matches\n• Display current progress with underscores\n• Validate user input (single letter, not already guessed)\n• Check if guess is correct and update game state"
+          }
+        ]
+      },
+      {
+        "title": "Input Validation",
+        "type": "input-validation",
+        "icon": "✅",
+        "content": [
+          {
+            "type": "text",
+            "content": "Ensure players enter valid guesses and handle edge cases gracefully."
+          },
+          {
+            "type": "code",
+            "content": "def get_valid_guess(guesses):\n    \"\"\"Get a valid letter guess from the player\"\"\"\n    while True:\n        guess = input(\"Guess a letter: \").lower().strip()\n        \n        # Check if input is exactly one character\n        if len(guess) != 1:\n            print(\"❌ Please enter exactly one letter.\")\n            continue\n        \n        # Check if input is a letter\n        if not guess.isalpha():\n            print(\"❌ Please enter a letter (a-z only).\")\n            continue\n        \n        # Check if letter was already guessed\n        if guess in guesses:\n            print(f\"❌ You already guessed '{guess}'. Try a different letter.\")\n            continue\n        \n        # Valid input - return the guess\n        return guess\n\n# Usage in main loop\nguess = get_valid_guess(guesses)\nguesses.append(guess)"
+          },
+          {
+            "type": "rules-table",
+            "title": "Validation Checks",
+            "headers": ["Check", "Condition", "Error Message"],
+            "rows": [
+              ["Length", "len(guess) != 1", "Enter exactly one letter"],
+              ["Type", "not guess.isalpha()", "Enter letters only (a-z)"],
+              ["Duplicate", "guess in guesses", "Already guessed that letter"],
+              ["Valid", "All checks pass", "Accept the guess"]
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Display Functions",
+        "type": "display-functions",
+        "icon": "🖥️",
+        "content": [
+          {
+            "type": "text",
+            "content": "Create functions to display the game state and provide visual feedback to players."
+          },
+          {
+            "type": "code",
+            "content": "def display_word(answer, guesses):\n    \"\"\"Display the word with guessed letters revealed\"\"\"\n    display = \"\"\n    for letter in answer:\n        if letter in guesses:\n            display += letter + \" \"\n        else:\n            display += \"_ \"\n    return display.strip()\n\ndef display_hangman(wrong_count):\n    \"\"\"Display hangman drawing based on wrong guesses\"\"\"\n    stages = [\n        \"\"\"  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========\"\"\",\n        \"\"\"  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========\"\"\",\n        \"\"\"  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========\"\"\",\n        \"\"\"  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========\"\"\",\n        \"\"\"  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========\"\"\",\n        \"\"\"  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========\"\"\",\n        \"\"\"  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========\"\"\"\n    ]\n    return stages[wrong_count]\n\ndef display_game_state(answer, guesses, wrong_guesses, max_attempts):\n    \"\"\"Display complete game state\"\"\"\n    print(\"\\n\" + \"=\"*50)\n    print(display_hangman(wrong_guesses))\n    print(\"\\nWord:\", display_word(answer, guesses))\n    print(f\"Guessed letters: {', '.join(sorted(guesses))}\")\n    print(f\"Wrong guesses: {wrong_guesses}/{max_attempts}\")\n    print(\"=\"*50)"
+          },
+          {
+            "type": "tip",
+            "title": "Visual Enhancements",
+            "content": "• ASCII art hangman for visual feedback\n• Clear word display with spaces\n• Organized guess tracking\n• Progress indicators for attempts remaining"
+          }
+        ]
+      },
+      {
+        "title": "Game End Conditions",
+        "type": "game-end",
+        "icon": "🏁",
+        "content": [
+          {
+            "type": "text",
+            "content": "Handle win and lose conditions with appropriate messages and final game state."
+          },
+          {
+            "type": "code",
+            "content": "# After main game loop ends\nprint(\"\\n\" + \"=\"*50)\n\nif guess_matches:\n    # Player won!\n    print(\"🎉 CONGRATULATIONS! 🎉\")\n    print(f\"You guessed the word: {answer.upper()}\")\n    print(f\"You won with {attempts - wrong_guesses} wrong guesses remaining!\")\n    \n    # Calculate score\n    score = len(answer) * (attempts - wrong_guesses) * 10\n    print(f\"Your score: {score} points\")\n    \n    # Save win to file\n    with open('hangman_wins.txt', 'a') as f:\n        f.write(f\"Won: {answer} - Score: {score}\\n\")\n        \nelse:\n    # Player lost\n    print(display_hangman(wrong_guesses))\n    print(\"💀 GAME OVER! 💀\")\n    print(f\"You ran out of guesses. The word was: {answer.upper()}\")\n    print(\"Better luck next time!\")\n    \n    # Save loss to file\n    with open('hangman_games.txt', 'a') as f:\n        f.write(f\"Lost: {answer} - Guesses: {', '.join(guesses)}\\n\")\n\nprint(\"Thanks for playing Hangman!\")\n\n# Ask if player wants to play again\nplay_again = input(\"\\nWould you like to play again? (y/n): \").lower().strip()\nif play_again.startswith('y'):\n    print(\"Starting new game...\\n\")\n    # Could restart the game here\nelse:\n    print(\"Goodbye!\")"
+          },
+          {
+            "type": "example",
+            "title": "Sample Game Endings",
+            "content": "Win: \"🎉 CONGRATULATIONS! You guessed: PYTHON\"\nLose: \"💀 GAME OVER! The word was: COMPUTER\"\nScore: Based on word length and remaining attempts\nFile logging: Save game results for tracking progress"
+          }
+        ]
+      },
+      {
+        "title": "Complete Hangman Game",
+        "type": "complete-game",
+        "icon": "🎮",
+        "content": [
+          {
+            "type": "text",
+            "content": "Here's the complete, functional Hangman game combining all components with proper organization."
+          },
+          {
+            "type": "code",
+            "content": "import random\n\ndef get_word_list():\n    \"\"\"Return list of words for the game\"\"\"\n    return [\n        'python', 'programming', 'computer', 'keyboard', 'monitor',\n        'mouse', 'software', 'hardware', 'internet', 'website',\n        'database', 'algorithm', 'function', 'variable', 'loop',\n        'string', 'integer', 'boolean', 'list', 'dictionary'\n    ]\n\ndef display_hangman(wrong_count):\n    \"\"\"Display hangman ASCII art\"\"\"\n    stages = [\n        \"  +---+\\n  |   |\\n      |\\n      |\\n      |\\n      |\\n=========\",\n        \"  +---+\\n  |   |\\n  O   |\\n      |\\n      |\\n      |\\n=========\",\n        \"  +---+\\n  |   |\\n  O   |\\n  |   |\\n      |\\n      |\\n=========\",\n        \"  +---+\\n  |   |\\n  O   |\\n /|   |\\n      |\\n      |\\n=========\",\n        \"  +---+\\n  |   |\\n  O   |\\n /|\\\\  |\\n      |\\n      |\\n=========\",\n        \"  +---+\\n  |   |\\n  O   |\\n /|\\\\  |\\n /    |\\n      |\\n=========\",\n        \"  +---+\\n  |   |\\n  O   |\\n /|\\\\  |\\n / \\\\  |\\n      |\\n=========\"\n    ]\n    return stages[min(wrong_count, len(stages)-1)]\n\ndef display_word(answer, guesses):\n    \"\"\"Show word with guessed letters revealed\"\"\"\n    return ' '.join(letter if letter in guesses else '_' for letter in answer)\n\ndef get_valid_guess(guesses):\n    \"\"\"Get valid letter input from player\"\"\"\n    while True:\n        guess = input(\"Guess a letter: \").lower().strip()\n        \n        if len(guess) != 1:\n            print(\"❌ Please enter exactly one letter.\")\n        elif not guess.isalpha():\n            print(\"❌ Please enter a letter (a-z only).\")\n        elif guess in guesses:\n            print(f\"❌ You already guessed '{guess}'.\")\n        else:\n            return guess\n\ndef play_hangman():\n    \"\"\"Main hangman game function\"\"\"\n    # Setup\n    words = get_word_list()\n    answer = random.choice(words).lower()\n    guesses = []\n    max_wrong = 6\n    wrong_guesses = 0\n    \n    print(\"\\n🎮 Welcome to Hangman! 🎮\")\n    print(f\"Hint: The word has {len(answer)} letters\")\n    print(f\"You have {max_wrong} wrong guesses allowed.\\n\")\n    \n    # Main game loop\n    while wrong_guesses < max_wrong:\n        # Display current state\n        print(display_hangman(wrong_guesses))\n        print(f\"\\nWord: {display_word(answer, guesses)}\")\n        print(f\"Guessed: {', '.join(sorted(guesses))}\")\n        print(f\"Wrong guesses: {wrong_guesses}/{max_wrong}\\n\")\n        \n        # Check win condition\n        if all(letter in guesses for letter in answer):\n            print(\"🎉 CONGRATULATIONS! 🎉\")\n            print(f\"You guessed the word: {answer.upper()}\")\n            return True\n        \n        # Get player guess\n        guess = get_valid_guess(guesses)\n        guesses.append(guess)\n        \n        # Check guess\n        if guess in answer:\n            print(f\"✅ Great! '{guess}' is in the word!\")\n        else:\n            wrong_guesses += 1\n            print(f\"❌ Sorry, '{guess}' is not in the word.\")\n        \n        print(\"-\" * 40)\n    \n    # Game over - player lost\n    print(display_hangman(wrong_guesses))\n    print(\"\\n💀 GAME OVER! 💀\")\n    print(f\"The word was: {answer.upper()}\")\n    return False\n\ndef main():\n    \"\"\"Main program with play again option\"\"\"\n    games_played = 0\n    games_won = 0\n    \n    while True:\n        games_played += 1\n        won = play_hangman()\n        \n        if won:\n            games_won += 1\n        \n        print(f\"\\nGames played: {games_played}\")\n        print(f\"Games won: {games_won}\")\n        print(f\"Win rate: {games_won/games_played*100:.1f}%\")\n        \n        play_again = input(\"\\nPlay again? (y/n): \").lower().strip()\n        if not play_again.startswith('y'):\n            print(\"Thanks for playing! 🎮\")\n            break\n        print(\"\\n\" + \"=\"*50)\n\nif __name__ == \"__main__\":\n    main()"
+          }
+        ]
+      },
+      {
+        "title": "Enhancements & Extensions",
+        "type": "enhancements",
+        "icon": "🚀",
+        "content": [
+          {
+            "type": "text",
+            "content": "Ideas to improve and extend the Hangman game with additional features."
+          },
+          {
+            "type": "rules-table",
+            "title": "Possible Enhancements",
+            "headers": ["Feature", "Description", "Implementation"],
+            "rows": [
+              ["Difficulty Levels", "Easy/Medium/Hard words", "Separate word lists by length"],
+              ["Hints System", "Provide word categories", "Dictionary with word-hint pairs"],
+              ["Score System", "Points based on performance", "Calculate from attempts and word length"],
+              ["High Scores", "Save and display best scores", "File handling with sorted scores"],
+              ["Word Categories", "Animals, countries, etc.", "Organize words by themes"],
+              ["Multiplayer", "Two players take turns", "Player switching logic"]
+            ]
+          },
+          {
+            "type": "code",
+            "content": "# Example: Adding difficulty levels\ndef get_words_by_difficulty():\n    \"\"\"Return words organized by difficulty\"\"\"\n    return {\n        'easy': ['cat', 'dog', 'sun', 'car', 'book', 'tree'],\n        'medium': ['python', 'computer', 'keyboard', 'program'],\n        'hard': ['algorithm', 'programming', 'development', 'debugging']\n    }\n\n# Example: Adding hints\ndef get_word_with_hint():\n    \"\"\"Return word and corresponding hint\"\"\"\n    word_hints = {\n        'python': 'A programming language named after a snake',\n        'computer': 'Electronic device for processing data',\n        'keyboard': 'Input device with keys for typing'\n    }\n    word = random.choice(list(word_hints.keys()))\n    return word, word_hints[word]\n\n# Example: High score system\ndef save_high_score(name, score):\n    \"\"\"Save player's score to file\"\"\"\n    with open('high_scores.txt', 'a') as f:\n        f.write(f\"{name},{score}\\n\")\n\ndef display_high_scores():\n    \"\"\"Show top 10 high scores\"\"\"\n    try:\n        with open('high_scores.txt', 'r') as f:\n            scores = []\n            for line in f:\n                name, score = line.strip().split(',')\n                scores.append((name, int(score)))\n            \n        # Sort by score (descending)\n        scores.sort(key=lambda x: x[1], reverse=True)\n        \n        print(\"\\n🏆 HIGH SCORES 🏆\")\n        for i, (name, score) in enumerate(scores[:10], 1):\n            print(f\"{i:2d}. {name:<15} {score:>6} points\")\n    except FileNotFoundError:\n        print(\"No high scores yet!\")"
+          },
+          {
+            "type": "tip",
+            "title": "Extension Ideas",
+            "content": "• Add word categories (animals, countries, etc.)\n• Implement difficulty levels with different word lengths\n• Create a hint system for challenging words\n• Add multiplayer functionality\n• Include a high score system with file persistence\n• Add ASCII art celebrations for wins"
+          }
+        ]
+      }
+    ]
+  },
+  "8": {
+    "title": "Course Completion & Next Steps",
+    "topics": [
+      {
+        "title": "Course Review",
+        "type": "course-review",
+        "icon": "🎓",
+        "content": [
+          {
+            "type": "text",
+            "content": "Congratulations! You have successfully completed 8 lessons of Python fundamentals. Let's review everything you've learned."
+          },
+          {
+            "type": "rules-table",
+            "title": "Complete Learning Journey",
+            "headers": ["Lesson", "Topic", "Key Skills Gained"],
+            "rows": [
+              ["1", "Python Fundamentals", "Variables, data types, input/output, operators"],
+              ["2", "Control Structures", "If statements, comparisons, boolean logic, for loops"],
+              ["3", "Advanced Loops", "While loops, loop control, game programming"],
+              ["4", "Data Structures", "Lists, tuples, sets, dictionaries"],
+              ["5", "File Handling & Functions", "File I/O, function design, modular programming"],
+              ["6", "Hangman Project", "Game development, ASCII art, input validation"],
+              ["7", "Virtual Pet Project", "Complex state management, persistence, time systems"],
+              ["8", "Course Completion", "Project finalization, next steps, continued learning"]
+            ]
+          },
+          {
+            "type": "tip",
+            "title": "Skills Mastered",
+            "content": "• Core Python syntax and data types\n• Control flow and decision making\n• Data structure manipulation\n• File handling and persistence\n• Function design and organization\n• Project development from concept to completion\n• Problem-solving and debugging techniques"
+          }
+        ]
+      },
+      {
+        "title": "Project Finalization",
+        "type": "project-finalization",
+        "icon": "🏁",
+        "content": [
+          {
+            "type": "text",
+            "content": "Complete your Virtual Bunny Pet Game project with professional touches and prepare it for sharing."
+          },
+          {
+            "type": "code",
+            "content": "# Final Project Checklist\n\"\"\"\n🎮 VIRTUAL BUNNY PET GAME - FINAL VERSION\n\nProject Completion Checklist:\n✅ Core gameplay loop implemented\n✅ Save/load functionality working\n✅ All features tested and debugged\n✅ Code properly commented\n✅ User-friendly interface\n✅ Error handling implemented\n\nFinal Polish Tasks:\n□ Add welcome screen with instructions\n□ Include credits and version info\n□ Create backup system for save files\n□ Add final testing and bug fixes\n□ Prepare project documentation\n□ Package for distribution\n\"\"\"\n\n# Enhanced Main Menu with Credits\ndef display_welcome_screen():\n    \"\"\"Show welcome screen with game info\"\"\"\n    print(\"\\n\" + \"═\" * 60)\n    print(\"🐰\" + \" \" * 18 + \"VIRTUAL BUNNY PET GAME\" + \" \" * 18 + \"🐰\")\n    print(\"═\" * 60)\n    print(\"🎮 Version 1.0 - Python Fundamentals Course Project\")\n    print(\"👨‍💻 Created by: [Your Name]\")\n    print(\"📅 Completed: [Date]\")\n    print(\"🎓 Course: Python Fundamentals (Lessons 1-8)\")\n    print(\"\\n🎯 GAME OBJECTIVE:\")\n    print(\"   Take care of your virtual bunny by feeding, playing,\")\n    print(\"   and monitoring their health. Keep them happy and healthy!\")\n    print(\"\\n🎮 HOW TO PLAY:\")\n    print(\"   • Use the menu to choose actions\")\n    print(\"   • Feed your bunny different foods\")\n    print(\"   • Play games to increase happiness\")\n    print(\"   • Check status to monitor health\")\n    print(\"   • Your bunny's data saves automatically\")\n    print(\"═\" * 60)\n    input(\"\\nPress Enter to start caring for your bunny...\")\n\ndef display_credits():\n    \"\"\"Show game credits and course completion\"\"\"\n    print(\"\\n\" + \"═\" * 50)\n    print(\"🏆\" + \" \" * 16 + \"CREDITS\" + \" \" * 16 + \"🏆\")\n    print(\"═\" * 50)\n    print(\"🎓 COURSE COMPLETED: Python Fundamentals\")\n    print(\"📚 Lessons Covered: 8 comprehensive lessons\")\n    print(\"🎮 Projects Built:\")\n    print(\"   • Hangman Game (Lesson 6)\")\n    print(\"   • Virtual Bunny Pet Game (Lessons 7-8)\")\n    print(\"\\n💻 TECHNOLOGIES LEARNED:\")\n    print(\"   • Python programming language\")\n    print(\"   • File I/O and data persistence\")\n    print(\"   • Game development concepts\")\n    print(\"   • User interface design\")\n    print(\"   • Project organization\")\n    print(\"\\n🎯 SKILLS ACHIEVED:\")\n    print(\"   • Problem-solving with code\")\n    print(\"   • Debugging and testing\")\n    print(\"   • Code documentation\")\n    print(\"   • Project management\")\n    print(\"═\" * 50)\n    print(\"🎉 Congratulations on completing the course! 🎉\")\n    print(\"═\" * 50)\n\n# Add credits option to main menu\ndef enhanced_main_menu(bunny):\n    \"\"\"Enhanced main menu with credits\"\"\"\n    # ... existing menu code ...\n    print(\"5. 🏆 View Credits\")\n    print(\"6. 💾 Save and Quit\")\n    \n    choice = input(\"Choose option (1-6): \")\n    if choice == '5':\n        display_credits()\n    # ... handle other choices ..."
+          },
+          {
+            "type": "example",
+            "title": "Project Documentation",
+            "content": "README.md file explaining:\n• How to run the game\n• Game features and controls\n• Technical requirements\n• Credits and acknowledgments\n• Future enhancement ideas"
+          }
+        ]
+      },
+      {
+        "title": "Code Organization & Best Practices",
+        "type": "best-practices",
+        "icon": "📋",
+        "content": [
+          {
+            "type": "text",
+            "content": "Review professional coding practices and organize your project for maintainability and sharing."
+          },
+          {
+            "type": "code",
+            "content": "# Professional Project Structure\n\"\"\"\nproject_folder/\n├── bunny_game.py          # Main game file\n├── game_data.py           # Data structures and constants\n├── game_functions.py      # Core game functions\n├── file_manager.py        # Save/load functionality\n├── ui_display.py          # User interface functions\n├── README.md              # Project documentation\n├── requirements.txt       # Dependencies (if any)\n└── saves/                 # Directory for save files\n    └── bunny_data.json\n\"\"\"\n\n# Example: game_data.py\n\"\"\"\nGame data structures and constants\n\"\"\"\n\n# Game constants\nMAX_STAT_VALUE = 100\nMIN_STAT_VALUE = 0\nDEFAULT_HUNGER = 50\nDEFAULT_HAPPINESS = 50\nDEFAULT_HEALTH = 100\nDEFAULT_ENERGY = 75\n\n# Food data\nFOOD_TYPES = {\n    'carrots': {'hunger': 20, 'happiness': 5, 'health': 0, 'energy': 0, 'emoji': '🥕'},\n    'lettuce': {'hunger': 15, 'happiness': 0, 'health': 5, 'energy': 0, 'emoji': '🥬'},\n    'apple': {'hunger': 10, 'happiness': 10, 'health': 0, 'energy': 0, 'emoji': '🍎'},\n    'hay': {'hunger': 25, 'happiness': 0, 'health': 0, 'energy': 5, 'emoji': '🌾'},\n    'strawberry': {'hunger': 8, 'happiness': 15, 'health': 0, 'energy': 0, 'emoji': '🍓'},\n    'water': {'hunger': 0, 'happiness': 0, 'health': 10, 'energy': 5, 'emoji': '🥤'}\n}\n\n# Activity data\nACTIVITIES = {\n    'fetch': {'happiness': 15, 'energy': -10, 'health': 0, 'emoji': '🎾'},\n    'run': {'happiness': 10, 'energy': -5, 'health': 5, 'emoji': '🏃'},\n    'puzzle': {'happiness': 20, 'energy': -15, 'health': 0, 'emoji': '🧩'},\n    'music': {'happiness': 12, 'energy': 5, 'health': 0, 'emoji': '🎵'},\n    'hide_seek': {'happiness': 18, 'energy': -12, 'health': 0, 'emoji': '🪑'},\n    'rest': {'happiness': 5, 'energy': 20, 'health': 5, 'emoji': '😴'}\n}\n\n# Personality types\nPERSONALITIES = ['playful', 'calm', 'energetic', 'shy']\n\n# Reaction messages by personality\nPERSONALITY_REACTIONS = {\n    'playful': {\n        'eating': ['bounces excitedly!', 'does a little hop!', 'wiggles nose happily!'],\n        'playing': ['jumps with joy!', 'spins in circles!', 'does happy binkies!']\n    },\n    'calm': {\n        'eating': ['eats peacefully', 'chews thoughtfully', 'nods appreciatively'],\n        'playing': ['enjoys quietly', 'moves gracefully', 'seems content']\n    },\n    'energetic': {\n        'eating': ['munches eagerly!', 'devours it quickly!', 'asks for more!'],\n        'playing': ['bursts with energy!', 'zooms around!', 'can\\'t sit still!']\n    },\n    'shy': {\n        'eating': ['nibbles cautiously', 'eats quietly', 'seems grateful'],\n        'playing': ['plays gently', 'warms up slowly', 'looks happy but reserved']\n    }\n}\n\n# Example: Well-documented function\ndef calculate_bunny_mood(bunny_stats):\n    \"\"\"\n    Calculate overall bunny mood based on all statistics.\n    \n    Args:\n        bunny_stats (dict): Dictionary containing bunny's current stats\n                          Must include: hunger, happiness, health, energy\n    \n    Returns:\n        tuple: (mood_level, mood_description)\n               mood_level (str): 'excellent', 'good', 'okay', 'poor', 'critical'\n               mood_description (str): Detailed description of bunny's state\n    \n    Example:\n        >>> stats = {'hunger': 80, 'happiness': 70, 'health': 90, 'energy': 60}\n        >>> mood, desc = calculate_bunny_mood(stats)\n        >>> print(mood)  # 'good'\n    \"\"\"\n    required_stats = ['hunger', 'happiness', 'health', 'energy']\n    \n    # Validate input\n    for stat in required_stats:\n        if stat not in bunny_stats:\n            raise ValueError(f\"Missing required stat: {stat}\")\n    \n    # Calculate average of all stats\n    total = sum(bunny_stats[stat] for stat in required_stats)\n    average = total / len(required_stats)\n    \n    # Determine mood based on average\n    if average >= 80:\n        return 'excellent', 'Your bunny is thriving and full of life!'\n    elif average >= 60:\n        return 'good', 'Your bunny is happy and healthy.'\n    elif average >= 40:\n        return 'okay', 'Your bunny needs some attention.'\n    elif average >= 20:\n        return 'poor', 'Your bunny is struggling and needs care.'\n    else:\n        return 'critical', 'Your bunny needs immediate attention!'"
+          },
+          {
+            "type": "tip",
+            "title": "Professional Code Practices",
+            "content": "• Use descriptive variable and function names\n• Add docstrings to all functions\n• Include type hints where helpful\n• Organize code into logical modules\n• Add error handling for user inputs\n• Create constants for magic numbers\n• Use consistent formatting and spacing"
+          }
+        ]
+      },
+      {
+        "title": "Testing & Debugging",
+        "type": "testing",
+        "icon": "🐛",
+        "content": [
+          {
+            "type": "text",
+            "content": "Learn essential testing and debugging techniques to ensure your code works reliably."
+          },
+          {
+            "type": "code",
+            "content": "# Testing Your Bunny Game\n\ndef test_bunny_creation():\n    \"\"\"Test bunny creation with valid data\"\"\"\n    test_bunny = create_new_bunny(\"TestBunny\")\n    \n    # Test basic properties\n    assert test_bunny['name'] == \"TestBunny\"\n    assert 0 <= test_bunny['hunger'] <= 100\n    assert 0 <= test_bunny['happiness'] <= 100\n    assert 0 <= test_bunny['health'] <= 100\n    assert 0 <= test_bunny['energy'] <= 100\n    assert test_bunny['personality'] in ['playful', 'calm', 'energetic', 'shy']\n    \n    print(\"✅ Bunny creation test passed!\")\n\ndef test_feeding_system():\n    \"\"\"Test feeding functionality\"\"\"\n    test_bunny = create_new_bunny(\"TestBunny\")\n    initial_hunger = test_bunny['hunger']\n    initial_meals = test_bunny['total_meals']\n    \n    # Simulate feeding carrots\n    test_bunny['hunger'] = min(100, test_bunny['hunger'] + 20)\n    test_bunny['happiness'] = min(100, test_bunny['happiness'] + 5)\n    test_bunny['total_meals'] += 1\n    \n    # Verify changes\n    assert test_bunny['hunger'] >= initial_hunger\n    assert test_bunny['total_meals'] == initial_meals + 1\n    \n    print(\"✅ Feeding system test passed!\")\n\ndef test_save_load_system():\n    \"\"\"Test file save and load functionality\"\"\"\n    import json\n    import os\n    \n    # Create test bunny\n    original_bunny = create_new_bunny(\"SaveTestBunny\")\n    original_bunny['hunger'] = 75  # Set specific value\n    \n    # Save to test file\n    test_file = 'test_bunny.json'\n    with open(test_file, 'w') as f:\n        json.dump(original_bunny, f)\n    \n    # Load from test file\n    with open(test_file, 'r') as f:\n        loaded_bunny = json.load(f)\n    \n    # Verify data matches\n    assert loaded_bunny['name'] == original_bunny['name']\n    assert loaded_bunny['hunger'] == original_bunny['hunger']\n    \n    # Clean up test file\n    os.remove(test_file)\n    \n    print(\"✅ Save/load system test passed!\")\n\ndef run_all_tests():\n    \"\"\"Run comprehensive test suite\"\"\"\n    print(\"🧪 Running Bunny Game Tests...\\n\")\n    \n    try:\n        test_bunny_creation()\n        test_feeding_system()\n        test_save_load_system()\n        \n        print(\"\\n🎉 All tests passed! Your game is working correctly.\")\n        \n    except AssertionError as e:\n        print(f\"❌ Test failed: {e}\")\n        print(\"Please check your code and try again.\")\n    except Exception as e:\n        print(f\"❌ Unexpected error during testing: {e}\")\n\n# Debugging helpers\ndef debug_bunny_stats(bunny):\n    \"\"\"Print detailed bunny information for debugging\"\"\"\n    print(\"\\n🐛 DEBUG: Bunny Statistics\")\n    print(\"-\" * 30)\n    for key, value in bunny.items():\n        print(f\"{key}: {value}\")\n    print(\"-\" * 30)\n\ndef validate_bunny_data(bunny):\n    \"\"\"Validate bunny data integrity\"\"\"\n    issues = []\n    \n    # Check required fields\n    required_fields = ['name', 'hunger', 'happiness', 'health', 'energy']\n    for field in required_fields:\n        if field not in bunny:\n            issues.append(f\"Missing field: {field}\")\n    \n    # Check stat ranges\n    stat_fields = ['hunger', 'happiness', 'health', 'energy']\n    for field in stat_fields:\n        if field in bunny:\n            if not (0 <= bunny[field] <= 100):\n                issues.append(f\"{field} out of range: {bunny[field]}\")\n    \n    # Check data types\n    if 'name' in bunny and not isinstance(bunny['name'], str):\n        issues.append(\"Name must be a string\")\n    \n    if issues:\n        print(\"❌ Data validation issues found:\")\n        for issue in issues:\n            print(f\"   • {issue}\")\n        return False\n    else:\n        print(\"✅ Bunny data is valid\")\n        return True\n\n# Usage example\nif __name__ == \"__main__\":\n    # Run tests before starting the game\n    run_all_tests()\n    \n    # Start the main game\n    main()"
+          },
+          {
+            "type": "tip",
+            "title": "Debugging Strategies",
+            "content": "• Use print statements to track variable values\n• Test small pieces of code individually\n• Create test cases for edge cases\n• Use debugging tools in your IDE\n• Add validation functions to catch errors early\n• Keep backups before making major changes"
+          }
+        ]
+      },
+      {
+        "title": "Next Steps in Programming",
+        "type": "next-steps",
+        "icon": "🚀",
+        "content": [
+          {
+            "type": "text",
+            "content": "Congratulations on completing Python Fundamentals! Here are suggested paths for continuing your programming journey."
+          },
+          {
+            "type": "rules-table",
+            "title": "Learning Path Recommendations",
+            "headers": ["Focus Area", "Topics to Learn", "Suggested Projects"],
+            "rows": [
+              ["Web Development", "Flask/Django, HTML, CSS, JavaScript", "Personal website, blog, web apps"],
+              ["Data Science", "Pandas, NumPy, Matplotlib, Jupyter", "Data analysis, visualizations, reports"],
+              ["Game Development", "Pygame, game engines, graphics", "2D games, animations, simulations"],
+              ["Automation", "APIs, web scraping, task automation", "Scripts, bots, workflow automation"],
+              ["Mobile Apps", "Kivy, React Native, app frameworks", "Mobile games, utility apps"],
+              ["AI/Machine Learning", "Scikit-learn, TensorFlow, neural networks", "Chatbots, image recognition, predictions"]
+            ]
+          },
+          {
+            "type": "code",
+            "content": "# Example: Next Project Ideas\n\n# 1. Web-based Bunny Game\n\"\"\"\nUpgrade your bunny game to run in a web browser:\n• Learn Flask or Django for web development\n• Create HTML/CSS interface\n• Add multiplayer features\n• Online leaderboards\n\"\"\"\n\n# 2. Data Analysis Project\n\"\"\"\nAnalyze your bunny game data:\n• Track player behavior patterns\n• Create charts showing bunny health over time\n• Find optimal feeding schedules\n• Generate reports on game statistics\n\"\"\"\n\n# 3. Advanced Game Features\n\"\"\"\nExpand your game programming skills:\n• Add graphics with Pygame\n• Create sound effects and music\n• Implement animations\n• Build a graphical user interface\n\"\"\"\n\n# 4. Mobile App Version\n\"\"\"\nCreate a mobile version of your bunny game:\n• Learn mobile app development\n• Add touch controls\n• Include push notifications\n• Cloud save synchronization\n\"\"\"\n\n# 5. AI-Powered Features\n\"\"\"\nAdd artificial intelligence to your projects:\n• Smart bunny behavior\n• Predictive health monitoring\n• Natural language processing for commands\n• Machine learning for personalization\n\"\"\"\n\n# Immediate Next Steps:\ndef create_learning_plan():\n    \"\"\"Create your personalized learning plan\"\"\"\n    interests = [\n        \"Web Development\",\n        \"Data Science\", \n        \"Game Development\",\n        \"Mobile Apps\",\n        \"AI/Machine Learning\",\n        \"Automation/Scripting\"\n    ]\n    \n    print(\"🎯 Choose your next learning focus:\")\n    for i, interest in enumerate(interests, 1):\n        print(f\"{i}. {interest}\")\n    \n    # This would be interactive in a real program\n    print(\"\\n💡 Recommendation: Start with the area that excites you most!\")\n    print(\"Remember: The best way to learn is by building projects.\")\n\n# Resources for continued learning\nlearning_resources = {\n    \"Online Platforms\": [\n        \"Codecademy - Interactive coding lessons\",\n        \"freeCodeCamp - Free programming curriculum\", \n        \"Khan Academy - Computer programming courses\",\n        \"Coursera - University-level courses\",\n        \"edX - Professional development courses\"\n    ],\n    \"Documentation\": [\n        \"Python.org - Official Python documentation\",\n        \"Real Python - Tutorials and articles\",\n        \"Python Package Index (PyPI) - Third-party libraries\"\n    ],\n    \"Communities\": [\n        \"Stack Overflow - Programming Q&A\",\n        \"Reddit r/Python - Python community\",\n        \"GitHub - Open source projects\",\n        \"Local programming meetups\"\n    ],\n    \"Books\": [\n        \"Automate the Boring Stuff with Python\",\n        \"Python Crash Course\", \n        \"Effective Python\",\n        \"Clean Code by Robert Martin\"\n    ]\n}"
+          },
+          {
+            "type": "tip",
+            "title": "Success Tips for Continued Learning",
+            "content": "• Build projects that interest you personally\n• Join programming communities for support\n• Read other people's code to learn new techniques\n• Contribute to open-source projects\n• Practice coding regularly, even just 15-30 minutes daily\n• Don't be afraid to make mistakes - they're part of learning!\n• Celebrate your progress and completed projects"
+          }
+        ]
+      },
+      {
+        "title": "Course Completion Certificate",
+        "type": "certificate",
+        "icon": "🏆",
+        "content": [
+          {
+            "type": "text",
+            "content": "Congratulations! You have successfully completed the Python Fundamentals course and earned your certificate."
+          },
+          {
+            "type": "code",
+            "content": "# Generate Course Completion Certificate\ndef generate_certificate(student_name, completion_date):\n    \"\"\"Generate a completion certificate\"\"\"\n    certificate = f\"\"\"\n╔══════════════════════════════════════════════════════════════╗\n║                                                              ║\n║               🎓 CERTIFICATE OF COMPLETION 🎓                ║\n║                                                              ║\n║                     Python Fundamentals                     ║\n║                    Programming Course                        ║\n║                                                              ║\n║              This is to certify that                        ║\n║                                                              ║\n║                    {student_name:<30}                    ║\n║                                                              ║\n║         has successfully completed the comprehensive         ║\n║              Python Fundamentals course covering:           ║\n║                                                              ║\n║    ✓ Python syntax and data types                           ║\n║    ✓ Control structures and loops                           ║\n║    ✓ Data structures and file handling                      ║\n║    ✓ Functions and modular programming                      ║\n║    ✓ Project development and debugging                      ║\n║    ✓ Game programming and user interfaces                   ║\n║                                                              ║\n║              Projects Successfully Completed:               ║\n║                • Hangman Word Game                          ║\n║                • Virtual Bunny Pet Game                     ║\n║                                                              ║\n║    Completion Date: {completion_date:<30}              ║\n║                                                              ║\n║                      🏆 Well Done! 🏆                       ║\n║                                                              ║\n║            Continue your programming journey!               ║\n║                                                              ║\n╚══════════════════════════════════════════════════════════════╝\n    \"\"\"\n    return certificate\n\n# Save certificate to file\ndef save_certificate(student_name, completion_date):\n    \"\"\"Save certificate to a text file\"\"\"\n    certificate = generate_certificate(student_name, completion_date)\n    \n    filename = f\"{student_name.replace(' ', '_')}_Python_Certificate.txt\"\n    \n    with open(filename, 'w') as f:\n        f.write(certificate)\n    \n    print(f\"🎉 Certificate saved as: {filename}\")\n    return filename\n\n# Example usage\nif __name__ == \"__main__\":\n    import datetime\n    \n    # Get student information\n    name = input(\"Enter your name for the certificate: \")\n    today = datetime.date.today().strftime(\"%B %d, %Y\")\n    \n    # Generate and display certificate\n    cert = generate_certificate(name, today)\n    print(cert)\n    \n    # Save certificate file\n    save_certificate(name, today)\n    \n    print(\"\\n🎊 Congratulations on completing Python Fundamentals! 🎊\")\n    print(\"You now have the foundation to build amazing things with Python.\")\n    print(\"Keep coding, keep learning, and keep creating!\")"
+          },
+          {
+            "type": "example",
+            "title": "What You've Accomplished",
+            "content": "✅ Mastered Python syntax and fundamentals\n✅ Built two complete interactive games\n✅ Learned professional coding practices\n✅ Developed problem-solving skills\n✅ Created projects you can be proud of\n✅ Gained confidence in programming\n✅ Prepared for advanced Python topics"
           }
         ]
       }
