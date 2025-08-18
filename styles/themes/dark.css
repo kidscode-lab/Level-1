@@ -1,0 +1,50 @@
+/**
+ * KidsCode Lab - Dark Theme
+ * Additional dark theme specific styles (optional overrides)
+ */
+
+/* The dark theme is already defined as default in variables.css */
+/* This file is for any dark-theme specific overrides or enhancements */
+
+[data-theme="dark"] {
+    /* Dark theme is the default, but you can add specific overrides here */
+    
+    /* Enhanced shadows for dark theme */
+    --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --shadow-dropdown: 0 20px 25px rgba(0, 0, 0, 0.4);
+    
+    /* Slightly adjusted code background for better contrast */
+    --code-bg: #0d1117;
+    
+    /* Enhanced glow effects for interactive elements */
+    --glow-primary: 0 0 20px rgba(0, 123, 204, 0.3);
+    --glow-accent: 0 0 15px rgba(78, 205, 196, 0.2);
+}
+
+/* Dark theme specific enhancements */
+[data-theme="dark"] .concept-card:hover {
+    box-shadow: var(--shadow-card), var(--glow-primary);
+}
+
+[data-theme="dark"] .highlight-box {
+    box-shadow: var(--glow-primary);
+}
+
+[data-theme="dark"] .terminal-simulator {
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme="dark"] .brand-logo:hover {
+    text-shadow: var(--glow-primary);
+}
+
+/* Dark theme button glow effects */
+[data-theme="dark"] .nav-btn:hover,
+[data-theme="dark"] .cta-button:hover {
+    box-shadow: var(--glow-primary);
+}
+
+[data-theme="dark"] .template-btn:hover,
+[data-theme="dark"] .run-btn:hover {
+    box-shadow: var(--glow-accent);
+}

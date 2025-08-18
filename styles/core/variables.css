@@ -1,0 +1,201 @@
+/**
+ * KidsCode Lab - Design System Variables
+ * All design tokens centralized for consistency
+ */
+
+:root {
+    /* ============== BRAND COLORS ============== */
+    --brand-primary: #007acc;
+    --brand-secondary: #005a9e;
+    --brand-accent: #4ecdc4;
+    --brand-success: #28a745;
+    --brand-warning: #ffc107;
+    --brand-danger: #dc3545;
+    --brand-info: #17a2b8;
+    
+    /* ============== THEME COLORS ============== */
+    /* Default: Dark Theme */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #333333;
+    --bg-quaternary: #404040;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --text-accent: var(--brand-accent);
+    --text-muted: #666666;
+    
+    --border-color: rgba(255,255,255,0.1);
+    --border-color-hover: rgba(255,255,255,0.2);
+    --border-color-focus: var(--brand-primary);
+    
+    /* ============== SPACING SYSTEM ============== */
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 1rem;      /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 2rem;      /* 32px */
+    --spacing-xxl: 3rem;     /* 48px */
+    --spacing-xxxl: 4rem;    /* 64px */
+    
+    /* ============== TYPOGRAPHY SCALE ============== */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-xxl: 1.5rem;    /* 24px */
+    --font-size-xxxl: 2rem;     /* 32px */
+    --font-size-xxxxl: 2.5rem;  /* 40px */
+    
+    /* ============== FONT FAMILIES ============== */
+    --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'Fira Code', 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', 'Source Code Pro', monospace;
+    --font-family-heading: 'Inter', var(--font-family-base);
+    
+    /* ============== FONT WEIGHTS ============== */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* ============== LINE HEIGHTS ============== */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+    
+    /* ============== BORDER RADIUS ============== */
+    --border-radius-none: 0;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-xxl: 24px;
+    --border-radius-full: 9999px;
+    
+    /* ============== SHADOWS ============== */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    
+    /* Component-specific shadows */
+    --shadow-card: var(--shadow-lg);
+    --shadow-modal: var(--shadow-2xl);
+    --shadow-dropdown: var(--shadow-xl);
+    
+    /* ============== Z-INDEX SCALE ============== */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    --z-toast: 1080;
+    --z-presentation: 9999;
+    
+    /* ============== ANIMATION & TRANSITIONS ============== */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* ============== LAYOUT DIMENSIONS ============== */
+    --header-height: 70px;
+    --sidebar-width: 320px;
+    --sidebar-width-mobile: 280px;
+    --container-max-width: 1200px;
+    --content-max-width: 800px;
+    
+    /* ============== COMPONENT DIMENSIONS ============== */
+    --button-height-sm: 32px;
+    --button-height-md: 40px;
+    --button-height-lg: 48px;
+    
+    --input-height-sm: 32px;
+    --input-height-md: 40px;
+    --input-height-lg: 48px;
+    
+    /* ============== CODE EDITOR THEME ============== */
+    --code-bg: #1e1e1e;
+    --code-text: #d4d4d4;
+    --code-comment: #6a9955;
+    --code-keyword: #569cd6;
+    --code-string: #ce9178;
+    --code-number: #b5cea8;
+    --code-function: #dcdcaa;
+    --code-operator: #d4d4d4;
+    
+    /* ============== EDUCATIONAL COMPONENTS ============== */
+    --concept-icon-size: 48px;
+    --process-step-min-width: 200px;
+    --terminal-min-height: 300px;
+    --quiz-option-height: 44px;
+    
+    /* ============== RESPONSIVE BREAKPOINTS ============== */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-xxl: 1536px;
+}
+
+/* ============== THEME OVERRIDES ============== */
+
+/* Light Theme */
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --bg-quaternary: #dee2e6;
+    
+    --text-primary: #212529;
+    --text-secondary: #495057;
+    --text-tertiary: #6c757d;
+    --text-muted: #adb5bd;
+    
+    --border-color: rgba(0,0,0,0.1);
+    --border-color-hover: rgba(0,0,0,0.2);
+    
+    --code-bg: #f8f9fa;
+    --code-text: #212529;
+}
+
+/* Colorful Theme */
+[data-theme="colorful"] {
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: rgba(255,255,255,0.15);
+    --bg-tertiary: rgba(255,255,255,0.25);
+    --bg-quaternary: rgba(255,255,255,0.35);
+    
+    --text-primary: #ffffff;
+    --text-secondary: #f8f9fa;
+    --border-color: rgba(255,255,255,0.3);
+    --border-color-hover: rgba(255,255,255,0.5);
+}
+
+/* High Contrast Theme */
+[data-theme="high-contrast"] {
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-tertiary: #222222;
+    --bg-quaternary: #333333;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #ffffff;
+    --border-color: #ffffff;
+    --border-color-hover: #ffffff;
+    
+    --brand-primary: #00ffff;
+    --brand-secondary: #0080ff;
+    --brand-accent: #ffff00;
+}

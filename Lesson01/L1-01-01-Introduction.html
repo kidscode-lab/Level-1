@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Fundamentals - Introduction | KidsCode Lab</title>
+    <link rel="stylesheet" href="../styles/master.css">
+    <link rel="stylesheet" href="../styles/course-extensions.css">
+    <script src="../scripts/course-engine.js"></script>
+    <script src="../scripts/course-interactions.js"></script>
+    <script src="../scripts/presentation-engine.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="course-progress">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 5%"></div>
+        </div>
+        <span class="progress-text">Lesson 1.1 - Introduction (5% Complete)</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
+            </div>
+            
+            <h2>🐍 Python Fundamentals</h2>
+            <h3>Lesson 1.1: Introduction to Programming</h3>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="course-navigation">
+            <div class="breadcrumb-nav">
+                <a href="../../index.html" class="breadcrumb-item">Course Home</a>
+                <span class="breadcrumb-separator">→</span>
+                <a href="../index.html" class="breadcrumb-item">Lesson 1</a>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-item active">Introduction</span>
+            </div>
+            <div class="lesson-nav">
+                <button class="nav-btn prev-btn" disabled>← Previous</button>
+                <button class="nav-btn next-btn" onclick="goToNext()">Next: Data Types →</button>
+            </div>
+        </nav>
+
+        <!-- Sidebar TOC -->
+        <aside class="lesson-sidebar">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Contents</button>
+            <nav class="lesson-toc">
+                <div class="toc-header">
+                    <span>Lesson 1 Contents</span>
+                    <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+                </div>
+                <ul class="toc-list">
+                    <li><a href="#" class="toc-item active">1.1 Introduction</a></li>
+                    <li><a href="L1-01-02-data-types.html" class="toc-item">1.2 Data Types</a></li>
+                    <li><a href="L1-01-03-variables.html" class="toc-item">1.3 Variables</a></li>
+                    <li><a href="L1-01-04-input-output.html" class="toc-item">1.4 Input/Output</a></li>
+                    <li><a href="L1-01-05-exercises.html" class="toc-item">1.5 Exercises</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Slide 1: Welcome -->
+            <section class="content-section" data-slide="1" data-slide-title="Welcome to Python">
+                <div class="section-header">
+                    <h2 class="section-title">🎉 Welcome to Python Programming!</h2>
+                    <p class="section-description">Let's start your coding journey with the most beginner-friendly programming language!</p>
+                </div>
+                
+                <div class="welcome-hero">
+                    <div class="python-mascot">🐍</div>
+                    <div class="welcome-content">
+                        <h3>What You'll Learn Today:</h3>
+                        <ul class="items-list">
+                            <li class="list-item">
+                                <div class="list-item-icon">🧠</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">How Computers Think</div>
+                                    <div class="list-item-description">Understanding the Input → Process → Output cycle</div>
+                                </div>
+                            </li>
+                            <li class="list-item">
+                                <div class="list-item-icon">🐍</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">Why Python?</div>
+                                    <div class="list-item-description">Why Python is perfect for beginners and professionals</div>
+                                </div>
+                            </li>
+                            <li class="list-item">
+                                <div class="list-item-icon">💻</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">Your First Code</div>
+                                    <div class="list-item-description">Writing and running your very first Python program</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: How Computers Function -->
+            <section class="content-section" data-slide="2" data-slide-title="How Computers Function">
+                <div class="section-header">
+                    <h2 class="section-title">🖥️ How Computers Function</h2>
+                    <p class="section-description">Every computer program follows a simple three-step process</p>
+                </div>
+
+                <div class="computer-process-demo">
+                    <div class="process-step input-step">
+                        <div class="step-header">
+                            <div class="step-icon">⌨️</div>
+                            <h3>INPUT</h3>
+                        </div>
+                        <p>Data goes into the computer</p>
+                        <div class="examples-box">
+                            <div class="example-item">Keyboard typing</div>
+                            <div class="example-item">Mouse clicks</div>
+                            <div class="example-item">Camera images</div>
+                        </div>
+                    </div>
+
+                    <div class="process-arrow">→</div>
+
+                    <div class="process-step process-step-middle">
+                        <div class="step-header">
+                            <div class="step-icon">🧠</div>
+                            <h3>PROCESS</h3>
+                        </div>
+                        <p>Computer thinks and calculates</p>
+                        <div class="cpu-animation">
+                            <div class="cpu-visual">Processing...</div>
+                        </div>
+                    </div>
+
+                    <div class="process-arrow">→</div>
+
+                    <div class="process-step output-step">
+                        <div class="step-header">
+                            <div class="step-icon">🖥️</div>
+                            <h3>OUTPUT</h3>
+                        </div>
+                        <p>Results come out</p>
+                        <div class="examples-box">
+                            <div class="example-item">Screen display</div>
+                            <div class="example-item">Printer output</div>
+                            <div class="example-item">Sound from speakers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-highlight">
+                    <div class="highlight-icon">💡</div>
+                    <p><strong>Remember:</strong> Every program you write will follow this pattern: 
+                        <div class="process-step">INPUT</div> ➡️ 
+                        <div class="process-step">PROCESS</div> ➡️ 
+                        <div class="process-step">OUTPUT</div>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Python Communication -->
+            <section class="content-section" data-slide="3" data-slide-title="Python - Communication Language">
+                <div class="section-header">
+                    <h2 class="section-title">🗣️ Python: A Language to Communicate with Computers</h2>
+                    <p class="section-description">Just like you speak English to communicate with friends, you use Python to communicate with computers!</p>
+                </div>
+
+                <div class="communication-flow">
+                    <div class="communication-step">
+                        <div class="brain-visual human-brain">
+                            <div class="brain-icon">🧠</div>
+                            <h4>Your Brain</h4>
+                            <p>Thinks in human language</p>
+                            <div class="thought-bubble">"I want to add 2 + 2"</div>
+                        </div>
+                    </div>
+
+                    <div class="translation-bridge">
+                        <div class="python-translator">
+                            <div class="translator-icon">🐍</div>
+                            <h4>Python</h4>
+                            <p>Translates to computer language</p>
+                            <div class="code-block">
+<pre><code><span class="code-keyword">result</span> = <span class="code-number">2</span> + <span class="code-number">2</span>
+<span class="code-keyword">print</span>(<span class="code-keyword">result</span>)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="communication-step">
+                        <div class="brain-visual computer-brain">
+                            <div class="brain-icon">🖥️</div>
+                            <h4>Computer</h4>
+                            <p>Understands and executes</p>
+                            <div class="output-display">Output: 4</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expandable Section -->
+                <div class="expandable-content">
+                    <button class="expand-toggle" aria-expanded="false">
+                        <span class="expand-icon">+</span>
+                        Why Python is Perfect for Beginners
+                    </button>
+                    <div class="expand-panel">
+                        <div class="reasons-grid">
+                            <div class="reason-card">
+                                <div class="reason-icon">📖</div>
+                                <h4>Easy to Read</h4>
+                                <p>Python code looks almost like English!</p>
+                            </div>
+                            <div class="reason-card">
+                                <div class="reason-icon">🚀</div>
+                                <h4>Quick to Learn</h4>
+                                <p>Less typing, more creating!</p>
+                            </div>
+                            <div class="reason-card">
+                                <div class="reason-icon">🌟</div>
+                                <h4>Very Powerful</h4>
+                                <p>Used by Google, YouTube, Instagram!</p>
+                            </div>
+                            <div class="reason-card">
+                                <div class="reason-icon">🆓</div>
+                                <h4>Completely Free</h4>
+                                <p>Download and use forever, no cost!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Interactive Demo -->
+            <section class="content-section" data-slide="4" data-slide-title="Python - Communication Language">
+                <div class="interactive-demo">
+                    <h4>🎮 Try Your First Python Code!</h4>
+                    <p>Click the button to see Python in action:</p>
+                    <div class="demo-container">
+                        <!-- <button class="level-button" onclick="runDemo()">Run Python Code!</button> -->
+                        <button class="level-button">Run Python Code!</button>
+                        <div class="demo-output" id="demoOutput">
+                            <div class="code-block">
+<pre><code><span class="code-comment"># Your first Python program!</span>
+<span class="code-keyword">print</span>(<span class="code-string">"Hello, World! I'm learning Python!"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Math in Python: 5 + 3 ="</span>, <span class="code-number">5</span> + <span class="code-number">3</span>)</code></pre>
+                            </div>
+                            <div class="output-result" id="outputResult" style="display:none;">
+                                <strong>Output:</strong><br>
+                                Hello, World! I'm learning Python!<br>
+                                Math in Python: 5 + 3 = 8
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Quiz -->
+            <section class="content-section quiz-section" data-slide="5" data-slide-title="Quick Quiz">
+                <div class="section-header">
+                    <h2 class="section-title">🧠 Quick Knowledge Check</h2>
+                    <p class="section-description">Test what you've learned so far!</p>
+                </div>
+                
+                <div class="quiz-question" data-question="1">
+                    <h4>Question 1: What are the three steps of how computers work?</h4>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">Think → Calculate → Display</button>
+                        <button class="quiz-option" data-correct="true">Input → Process → Output</button>
+                        <button class="quiz-option" data-correct="false">Start → Run → Finish</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                
+                <div class="quiz-question"  data-question="2" style="display:none;">
+                    <h4>Question 2: Why is Python great for beginners?</h4>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">It's very complicated</button>
+                        <button class="quiz-option" data-correct="true">It reads like English and is easy to learn</button>
+                        <button class="quiz-option" data-correct="false">It only works on expensive computers</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                
+                <div class="quiz-complete" style="display:none;">
+                    <div class="completion-badge">🎉</div>
+                    <h3>Great job! You've completed the introduction!</h3>
+                    <p>Ready to learn about Python data types?</p>
+                    <button class="level-button" onclick="goToNext()">Continue to Data Types →</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Tooltips for hover help -->
+    <div class="tooltip" id="tooltip"></div>
+</body>
+</html>

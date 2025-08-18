@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Fundamentals - Variables | KidsCode Lab</title>
+    <link rel="stylesheet" href="../styles/master.css">
+    <link rel="stylesheet" href="../styles/course-extensions.css">
+    <script src="../scripts/course-engine.js"></script>
+    <script src="../scripts/course-interactions.js"></script>
+    <script src="../scripts/presentation-engine.js"></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-track">
+            <div class="progress-fill" style="width: 30%"></div>
+        </div>
+        <span class="progress-text">Lesson 1.3 - Variables (30% Complete)</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
+            </div>
+            
+            <h2>🐍 Python Fundamentals</h2>
+            <h3>Lesson 1.3: Variables and F-Strings</h3>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <div class="breadcrumb">
+                <a href="../../index.html" class="breadcrumb-item">Course Home</a>
+                <span class="breadcrumb-separator">→</span>
+                <a href="../index.html" class="breadcrumb-item">Lesson 1</a>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-item active">Variables</span>
+            </div>
+            <div class="nav-controls">
+                <button class="btn-base btn-secondary" onclick="goToPrevious()">← Previous: Data Types</button>
+                <button class="btn-base btn-primary" onclick="goToNext()">Next: Input/Output →</button>
+            </div>
+        </nav>
+
+        <!-- Sidebar TOC -->
+        <aside class="sidebar">
+            <button class="btn-base btn-primary sidebar-toggle" onclick="toggleSidebar()">☰ Contents</button>
+            <nav class="lesson-toc">
+                <div class="toc-header">
+                    <span>Lesson 1 Contents</span>
+                    <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+                </div>
+                <ul class="toc-list list-base">
+                    <li><a href="L1-01-01-introduction.html" class="toc-item">1.1 Introduction</a></li>
+                    <li><a href="L1-01-02-data-types.html" class="toc-item">1.2 Data Types</a></li>
+                    <li><a href="#" class="toc-item active">1.3 Variables</a></li>
+                    <li><a href="L1-01-04-input-output.html" class="toc-item">1.4 Input/Output</a></li>
+                    <li><a href="L1-01-05-exercises.html" class="toc-item">1.5 Exercises</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Slide 1: Variables Introduction -->
+            <section class="content-section" data-slide="1" data-slide-title="What are Variables?">
+                <div class="section-header">
+                    <h2 class="section-title">📦 What are Variables?</h2>
+                    <p class="section-description">Variables are like drawers in memory that store your data!</p>
+                </div>
+
+                <div class="hero-section">
+                    <div class="mascot">🗃️</div>
+                    <div class="hero-content">
+                        <h3>Think of Variables Like:</h3>
+                        <ul class="list-base">
+                            <li class="list-item">
+                                <div class="list-item-icon">📦</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">Storage Boxes</div>
+                                    <div class="list-item-description">Each variable is like a labeled box that holds one piece of data</div>
+                                </div>
+                            </li>
+                            <li class="list-item">
+                                <div class="list-item-icon">🏷️</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">Name Tags</div>
+                                    <div class="list-item-description">Every variable has a name so you can find your data later</div>
+                                </div>
+                            </li>
+                            <li class="list-item">
+                                <div class="list-item-icon">🔄</div>
+                                <div class="list-item-content">
+                                    <div class="list-item-title">Changeable Content</div>
+                                    <div class="list-item-description">You can change what's stored in a variable anytime</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-icon">💡</div>
+                    <p><strong>Simple Example:</strong> Think of <code>myage = 15</code> as putting the number 15 into a box labeled "myage"</p>
+                </div>
+            </section>
+
+            <!-- Slide 2: F-Strings Introduction -->
+            <section class="content-section" data-slide="2" data-slide-title="F-Strings Magic">
+                <div class="section-header">
+                    <h2 class="section-title">✨ F-Strings: The Magic Way to Use Variables</h2>
+                    <p class="section-description">F-strings make it super easy to put variables inside sentences!</p>
+                </div>
+
+                <div class="comparison-layout">
+                    <div class="comparison-side">
+                        <div class="card-header">
+                            <div class="card-icon">👩‍💻</div>
+                            <h4 class="card-title">Your Code</h4>
+                        </div>
+                        <p>Create a variable</p>
+                        <div class="code-block">
+<pre><code><span class="code-keyword">myage</span> = <span class="code-number">15</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="vs-divider">→</div>
+
+                    <div class="comparison-side">
+                        <div class="card-header">
+                            <div class="card-icon">🎯</div>
+                            <h4 class="card-title">F-String</h4>
+                        </div>
+                        <p>Put it in a sentence</p>
+                        <div class="code-block">
+<pre><code><span class="code-keyword">print</span>(<span class="code-string">f"Hello! I'm {myage} years old!"</span>)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="vs-divider">→</div>
+
+                    <div class="comparison-side">
+                        <div class="card-header">
+                            <div class="card-icon">🖥️</div>
+                            <h4 class="card-title">Output</h4>
+                        </div>
+                        <p>Beautiful result!</p>
+                        <div class="card-base success-state">
+                            Hello! I'm 15 years old!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-icon">🌟</div>
+                    <p><strong>Pro Tip:</strong> Always use f-strings instead of old-style string concatenation - they're easier and faster!</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Memory Visualization -->
+            <section class="content-section" data-slide="3" data-slide-title="Computer Memory and Variables">
+                <div class="section-header">
+                    <h2 class="section-title">🧠 How Variables Live in Computer Memory</h2>
+                    <p class="section-description">Let's peek inside the computer to see where variables are stored!</p>
+                </div>
+
+                <div class="comparison-layout">
+                    <div class="comparison-side">
+                        <div class="card-header">
+                            <div class="card-icon">💻</div>
+                            <h3 class="card-title">PHYSICAL MEMORY</h3>
+                        </div>
+                        <p>Real memory chips inside your computer</p>
+                        <div class="grid-base grid-3 gap-sm">
+                            <div class="card-base compact center">RAM sticks</div>
+                            <div class="card-base compact center">Memory circuits</div>
+                            <div class="card-base compact center">Storage chips</div>
+                        </div>
+                    </div>
+
+                    <div class="vs-divider">VS</div>
+
+                    <div class="comparison-side">
+                        <div class="card-header">
+                            <div class="card-icon">🔢</div>
+                            <h3 class="card-title">MEMORY BLOCKS</h3>
+                        </div>
+                        <p>Organized into numbered blocks</p>
+                        <div class="grid-base grid-2 gap-sm">
+                            <div class="card-base compact center">Empty</div>
+                            <div class="card-base compact center">Empty</div>
+                            <div class="card-base compact center success-state">myage = 15</div>
+                            <div class="card-base compact center">Empty</div>
+                        </div>
+                        <p class="text-center"><em>Memory is organized block by block in a computer</em></p>
+                    </div>
+                </div>
+
+                <!-- Expandable Section -->
+                <div class="expandable">
+                    <button class="expand-trigger" aria-expanded="false">
+                        <span class="expand-icon">+</span>
+                        How Variable Assignment Works Step-by-Step
+                    </button>
+                    <div class="expand-content">
+                        <div class="expand-grid">
+                            <div class="expand-item">
+                                <div class="expand-item-icon">1️⃣</div>
+                                <h4>Allocate Block</h4>
+                                <p>Python finds an empty memory block</p>
+                            </div>
+                            <div class="expand-item">
+                                <div class="expand-item-icon">2️⃣</div>
+                                <h4>Label It</h4>
+                                <p>Gives it the name "myage"</p>
+                            </div>
+                            <div class="expand-item">
+                                <div class="expand-item-icon">3️⃣</div>
+                                <h4>Store Value</h4>
+                                <p>Puts the number 15 inside</p>
+                            </div>
+                            <div class="expand-item">
+                                <div class="expand-item-icon">4️⃣</div>
+                                <h4>Ready to Use</h4>
+                                <p>Now you can use "myage" anywhere!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Interactive Lab -->
+            <section class="content-section" data-slide="4" data-slide-title="Hands-on Lab">
+                <div class="section-header">
+                    <h2 class="section-title">🧪 Lab: Create Your Own Variables</h2>
+                    <p class="section-description">Time to practice! Create variables and print them with f-strings.</p>
+                </div>
+
+                <div class="demo-section">
+                    <h4>🎮 Try Creating Variables!</h4>
+                    <p>Click the buttons to see variables in action:</p>
+                    <div class="demo-container">
+                        <div class="grid-base grid-2 gap-md">
+                            <button class="btn-base btn-secondary" onclick="runVariableDemo('basic')">Basic Variable</button>
+                            <button class="btn-base btn-secondary" onclick="runVariableDemo('string')">String Variable</button>
+                            <button class="btn-base btn-secondary" onclick="runVariableDemo('multiple')">Multiple Variables</button>
+                            <button class="btn-base btn-secondary" onclick="runVariableDemo('fstring')">F-String Magic</button>
+                        </div>
+                        
+                        <div class="card-base m-lg" id="variableDemoOutput">
+                            <div class="code-block" id="variableDemoCode">
+                                <p>👆 Click a button above to see different variable examples!</p>
+                            </div>
+                            <div class="card-base success-state m-md" id="variableDemoResult" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Input Function -->
+            <section class="content-section" data-slide="5" data-slide-title="Function: input()">
+                <div class="section-header">
+                    <h2 class="section-title">⌨️ Function: input() - Getting Data from Users</h2>
+                    <p class="section-description">The input() function lets users type information into your program!</p>
+                </div>
+
+                <div class="flow-base">
+                    <div class="flow-step">
+                        <div class="flow-step-header">
+                            <div class="flow-step-icon">📝</div>
+                            <h3 class="flow-step-title">STEP 1</h3>
+                        </div>
+                        <p>Create empty variable</p>
+                        <div class="code-block">yourName = ""</div>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-step">
+                        <div class="flow-step-header">
+                            <div class="flow-step-icon">⌨️</div>
+                            <h3 class="flow-step-title">STEP 2</h3>
+                        </div>
+                        <p>Ask user for input</p>
+                        <div class="code-block">yourName = input("What is your name: ")</div>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-step">
+                        <div class="flow-step-header">
+                            <div class="flow-step-icon">🖨️</div>
+                            <h3 class="flow-step-title">STEP 3</h3>
+                        </div>
+                        <p>Use the variable</p>
+                        <div class="code-block">print(f"Hello {yourName}!")</div>
+                    </div>
+                </div>
+
+                <div class="demo-section">
+                    <h4>🎮 Try the Input Function!</h4>
+                    <div class="demo-container">
+                        <div class="card-base">
+                            <div class="code-block">
+<pre><code>yourName = ""
+yourName = input("What is your name: ")
+print(f"Hello {yourName}!")</code></pre>
+                            </div>
+                            <div class="flex-between gap-md m-md">
+                                <span class="text-muted">What is your name: </span>
+                                <input type="text" id="nameInput" placeholder="Type your name here..." class="flex-1 p-sm">
+                                <button class="btn-base btn-primary" onclick="simulateInput()">Enter</button>
+                            </div>
+                            <div class="card-base success-state m-md" id="inputOutput" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Variable Naming Rules -->
+            <section class="content-section" data-slide="6" data-slide-title="Rules to Name a Variable">
+                <div class="section-header">
+                    <h2 class="section-title">📋 Rules to Name a Variable</h2>
+                    <p class="section-description">Follow these rules to create valid variable names in Python!</p>
+                </div>
+
+                <div class="rules-showcase">
+                    <div class="rule-card valid">
+                        <div class="rule-header">
+                            <div class="rule-icon">✅</div>
+                            <h4>VALID Examples</h4>
+                        </div>
+                        <div class="grid-base grid-2 gap-sm">
+                            <div class="example-item">myName</div>
+                            <div class="example-item">_address</div>
+                            <div class="example-item">user_10</div>
+                            <div class="example-item">types3</div>
+                        </div>
+                    </div>
+
+                    <div class="rule-card invalid">
+                        <div class="rule-header">
+                            <div class="rule-icon">❌</div>
+                            <h4>INVALID Examples</h4>
+                        </div>
+                        <div class="grid-base grid-2 gap-sm">
+                            <div class="example-item">%myName</div>
+                            <div class="example-item">3types</div>
+                            <div class="example-item">user_10**</div>
+                            <div class="example-item">print</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-base accent-border">
+                    <div class="rules-list">
+                        <div class="rule-item">
+                            <div class="rule-number">1</div>
+                            <div class="rule-text">Start with a letter or underscore character</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-number">2</div>
+                            <div class="rule-text">Cannot start with a number</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-number">3</div>
+                            <div class="rule-text">Only contain letters, numbers, and underscores (A-z, 0-9, _)</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-number">4</div>
+                            <div class="rule-text">Case-sensitive (age ≠ Age ≠ AGE)</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-number">5</div>
+                            <div class="rule-text">Cannot be Python keywords (print, input, etc.)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-section">
+                    <h4>🎯 Variable Name Checker</h4>
+                    <div class="demo-container">
+                        <div class="flex-between gap-md">
+                            <input type="text" id="variableNameInput" placeholder="Enter a variable name to check..." class="flex-1 p-sm">
+                            <button class="btn-base btn-primary" onclick="checkVariableName()">Check Name</button>
+                        </div>
+                        <div class="card-base m-md" id="checkerResult" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Type Conversion and Quiz -->
+            <section class="content-section" data-slide="7" data-slide-title="Type Conversion">
+                <div class="section-header">
+                    <h2 class="section-title">🔄 Converting Input to Numbers</h2>
+                    <p class="section-description">input() always gives you text - but what if you need numbers for math?</p>
+                </div>
+
+                <div class="grid-base grid-2">
+                    <div class="card-base warning-state">
+                        <div class="card-header">
+                            <div class="card-icon">⚠️</div>
+                            <h4 class="card-title">The Problem</h4>
+                        </div>
+                        <p>input() always returns a string (text), even if you type numbers!</p>
+                        <div class="code-block">
+<pre><code><span class="code-comment"># This won't work for math!</span>
+<span class="code-keyword">age</span> = <span class="code-function">input</span>(<span class="code-string">"How old are you: "</span>)
+<span class="code-comment"># age is now "15" (text), not 15 (number)</span></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="card-base success-state">
+                        <div class="card-header">
+                            <div class="card-icon">✨</div>
+                            <h4 class="card-title">The Solution</h4>
+                        </div>
+                        <div class="grid-base grid-1 gap-sm">
+                            <div class="card-base">
+                                <h5>For whole numbers: int()</h5>
+                                <div class="code-block">
+<pre><code><span class="code-keyword">age</span> = <span class="code-function">int</span>(<span class="code-function">input</span>(<span class="code-string">"How old are you: "</span>))</code></pre>
+                                </div>
+                            </div>
+                            <div class="card-base">
+                                <h5>For decimal numbers: float()</h5>
+                                <div class="code-block">
+<pre><code><span class="code-keyword">price</span> = <span class="code-function">float</span>(<span class="code-function">input</span>(<span class="code-string">"How much: "</span>))</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-section">
+                    <h4>🧮 Try It: Square Area Calculator</h4>
+                    <div class="demo-container">
+                        <div class="flex-between gap-md">
+                            <label class="text-center">Enter side length (cm):</label>
+                            <input type="number" id="sideInput" placeholder="5.5" class="p-sm" step="0.1">
+                            <button class="btn-base btn-primary" onclick="calculateArea()">Calculate Area</button>
+                        </div>
+                        <div class="card-base m-md" id="calcOutput" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Debug Challenge Quiz -->
+            <section class="content-section quiz-section" data-slide="8" data-slide-title="Debug Challenge">
+                <div class="section-header">
+                    <h2 class="section-title">🐛 Debug Challenge Quiz</h2>
+                    <p class="section-description">Can you spot the bug in this code?</p>
+                </div>
+                
+                <div class="card-base accent-border">
+                    <h4>What's wrong with this code? How would you fix it?</h4>
+                    <div class="code-block error-state">
+<pre><code><span class="code-function">print</span>(<span class="code-string">"Calculate Square Area"</span>)
+<span class="code-keyword">side</span> = <span class="code-number">0</span>
+<span class="code-keyword">area</span> = <span class="code-number">0</span>
+<span class="code-keyword">side</span> = <span class="code-function">input</span>(<span class="code-string">"What is the side value in cm: "</span>)
+<span class="code-keyword">area</span> = <span class="code-keyword">side</span> * <span class="code-keyword">side</span>
+<span class="code-function">print</span>(<span class="code-string">f"The square area is {area} cm"</span>)</code></pre>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" data-question="1">
+                    <h4>What's the main problem with this code?</h4>
+                    <div class="quiz-options">
+                        <button class="quiz-option" data-correct="false">The variable names are wrong</button>
+                        <button class="quiz-option" data-correct="true">Need to convert input() to int() or float() for math</button>
+                        <button class="quiz-option" data-correct="false">The print statement has wrong syntax</button>
+                        <button class="quiz-option" data-correct="false">Should use different variables</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+                
+                <div class="quiz-complete" style="display:none;">
+                    <div class="completion-badge">🎉</div>
+                    <h3>Excellent debugging skills!</h3>
+                    <p>You understand variables and type conversion!</p>
+                    
+                    <!-- Expandable Solution -->
+                    <div class="expandable">
+                        <button class="expand-trigger" aria-expanded="false">
+                            <span class="expand-icon">+</span>
+                            Show the Corrected Code
+                        </button>
+                        <div class="expand-content">
+                            <div class="code-block">
+<pre><code><span class="code-function">print</span>(<span class="code-string">"Calculate Square Area"</span>)
+<span class="code-keyword">side</span> = <span class="code-number">0</span>
+<span class="code-keyword">area</span> = <span class="code-number">0</span>
+<span class="code-keyword">side</span> = <span class="code-function">float</span>(<span class="code-function">input</span>(<span class="code-string">"What is the side value in cm: "</span>))  <span class="code-comment"># Fixed!</span>
+<span class="code-keyword">area</span> = <span class="code-keyword">side</span> * <span class="code-keyword">side</span>
+<span class="code-function">print</span>(<span class="code-string">f"The square area is {area} cm²"</span>)</code></pre>
+                            </div>
+                            <p><strong>Explanation:</strong> input() returns a string, so multiplying strings doesn't do math - it repeats the text! We need float() to convert text to numbers.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-base btn-primary btn-large" onclick="goToNext()">Continue to Input/Output →</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Tooltips for hover help -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Variables demo functions
+        function runVariableDemo(type) {
+            const codeDisplay = document.getElementById('variableDemoCode');
+            const resultDisplay = document.getElementById('variableDemoResult');
+            
+            let code = '';
+            let output = '';
+            
+            switch(type) {
+                case 'basic':
+                    code = `<pre><code><span class="code-comment"># Creating a basic variable</span>
+<span class="code-keyword">myage</span> = <span class="code-number">15</span>
+<span class="code-function">print</span>(<span class="code-keyword">myage</span>)</code></pre>`;
+                    output = '15';
+                    break;
+                    
+                case 'string':
+                    code = `<pre><code><span class="code-comment"># Creating a string variable</span>
+<span class="code-keyword">myname</span> = <span class="code-string">"Alex"</span>
+<span class="code-function">print</span>(<span class="code-keyword">myname</span>)</code></pre>`;
+                    output = 'Alex';
+                    break;
+                    
+                case 'multiple':
+                    code = `<pre><code><span class="code-comment"># Creating multiple variables</span>
+<span class="code-keyword">name</span> = <span class="code-string">"Sam"</span>
+<span class="code-keyword">age</span> = <span class="code-number">16</span>
+<span class="code-keyword">grade</span> = <span class="code-string">"A+"</span>
+<span class="code-function">print</span>(<span class="code-keyword">name</span>)
+<span class="code-function">print</span>(<span class="code-keyword">age</span>)
+<span class="code-function">print</span>(<span class="code-keyword">grade</span>)</code></pre>`;
+                    output = 'Sam<br>16<br>A+';
+                    break;
+                    
+                case 'fstring':
+                    code = `<pre><code><span class="code-comment"># Using f-strings (the cool way!)</span>
+<span class="code-keyword">name</span> = <span class="code-string">"Jordan"</span>
+<span class="code-keyword">age</span> = <span class="code-number">14</span>
+<span class="code-function">print</span>(<span class="code-string">f"Hi! I'm {name} and I'm {age} years old!"</span>)</code></pre>`;
+                    output = "Hi! I'm Jordan and I'm 14 years old!";
+                    break;
+            }
+            
+            codeDisplay.innerHTML = code;
+            resultDisplay.innerHTML = `<strong>Output:</strong><br>${output}`;
+            resultDisplay.style.display = 'block';
+        }
+        
+        // Input simulation
+        function simulateInput() {
+            const nameInput = document.getElementById('nameInput');
+            const output = document.getElementById('inputOutput');
+            const name = nameInput.value || 'Anonymous';
+            
+            output.innerHTML = `<strong>Output:</strong><br>Hello ${name}!`;
+            output.style.display = 'block';
+        }
+        
+        // Variable name checker
+        function checkVariableName() {
+            const input = document.getElementById('variableNameInput');
+            const result = document.getElementById('checkerResult');
+            const name = input.value.trim();
+            
+            if (!name) {
+                result.innerHTML = '<div class="info-state">Please enter a variable name to check</div>';
+                result.style.display = 'block';
+                return;
+            }
+            
+            const pythonKeywords = ['and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'exec', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or', 'pass', 'print', 'raise', 'return', 'try', 'while', 'with', 'yield', 'input', 'len', 'str', 'int', 'float'];
+            
+            let isValid = true;
+            let errors = [];
+            
+            // Check if starts with letter or underscore
+            if (!/^[a-zA-Z_]/.test(name)) {
+                isValid = false;
+                errors.push('Must start with a letter or underscore');
+            }
+            
+            // Check for invalid characters
+            if (!/^[a-zA-Z0-9_]+$/.test(name)) {
+                isValid = false;
+                errors.push('Can only contain letters, numbers, and underscores');
+            }
+            
+            // Check for Python keywords
+            if (pythonKeywords.includes(name.toLowerCase())) {
+                isValid = false;
+                errors.push('Cannot use Python keywords');
+            }
+            
+            if (isValid) {
+                result.innerHTML = '<div class="success-state">✅ Perfect! This is a valid variable name!</div>';
+            } else {
+                result.innerHTML = `<div class="error-state">❌ Invalid: ${errors.join(', ')}</div>`;
+            }
+            
+            result.style.display = 'block';
+        }
+        
+        // Calculator demo
+        function calculateArea() {
+            const input = document.getElementById('sideInput');
+            const output = document.getElementById('calcOutput');
+            const side = parseFloat(input.value);
+            
+            if (isNaN(side) || side <= 0) {
+                output.innerHTML = '<div class="error-state">❌ Please enter a valid positive number</div>';
+                output.style.display = 'block';
+                return;
+            }
+            
+            const area = side * side;
+            output.innerHTML = `
+                <div class="success-state">
+                    <h5>✅ Calculation Complete!</h5>
+                    <p><strong>Side length:</strong> ${side} cm</p>
+                    <p><strong>Area:</strong> ${area} cm²</p>
+                    <div class="code-block m-md">
+                        <strong>Python code equivalent:</strong><br>
+                        <code>side = ${side}<br>area = side * side  # Result: ${area}</code>
+                    </div>
+                </div>
+            `;
+            output.style.display = 'block';
+        }
+        
+        // Navigation functions
+        function goToPrevious() {
+            window.location.href = 'L1-01-02-data-types.html';
+        }
+        
+        function goToNext() {
+            window.location.href = 'L1-01-04-input-output.html';
+        }
+        
+        // Sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+        
+        // Expandable content handler
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle expandable content
+            const expandTriggers = document.querySelectorAll('.expand-trigger');
+            expandTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.expand-icon');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    
+                    if (isExpanded) {
+                        content.classList.remove('active');
+                        content.style.display = 'none';
+                        this.setAttribute('aria-expanded', 'false');
+                        icon.textContent = '+';
+                    } else {
+                        content.classList.add('active');
+                        content.style.display = 'block';
+                        this.setAttribute('aria-expanded', 'true');
+                        icon.textContent = '−';
+                    }
+                });
+            });
+            
+            // Quiz system
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const isCorrect = this.getAttribute('data-correct') === 'true';
+                    const feedback = this.closest('.quiz-question').querySelector('.quiz-feedback');
+                    const allOptions = this.closest('.quiz-options').querySelectorAll('.quiz-option');
+                    
+                    // Disable all options
+                    allOptions.forEach(opt => opt.disabled = true);
+                    
+                    // Style the selected answer
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        feedback.innerHTML = '<div class="success-state text-center">🎉 Correct! The input() function returns a string, so we need type conversion for math operations.</div>';
+                        
+                        // Show quiz complete section
+                        setTimeout(() => {
+                            document.querySelector('.quiz-complete').style.display = 'block';
+                        }, 1500);
+                    } else {
+                        this.classList.add('incorrect');
+                        feedback.innerHTML = '<div class="error-state text-center">❌ Not quite right. Think about what data type input() returns...</div>';
+                        
+                        // Highlight correct answer
+                        allOptions.forEach(opt => {
+                            if (opt.getAttribute('data-correct') === 'true') {
+                                opt.classList.add('correct');
+                            }
+                        });
+                        
+                        setTimeout(() => {
+                            document.querySelector('.quiz-complete').style.display = 'block';
+                        }, 3000);
+                    }
+                });
+            });
+            
+            console.log('Variables lesson loaded successfully with new component architecture');
+        });
+    </script>
+</body>
+</html>
